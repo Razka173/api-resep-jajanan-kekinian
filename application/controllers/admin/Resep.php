@@ -295,6 +295,37 @@ class Resep extends CI_Controller {
 		// End masuk database
 	}
 
+	// Tambah Step Resep
+	public function tambahstepresep($id_resep)
+	{
+		// Passing Data
+		$resep = $this->Resep_model->detail($id_resep);
+
+		// Validasi input
+		$valid = $this->form_validation;
+		$valid->set_rules('takaran','Takaran','required',
+			array(	'required'		=> '%s harus diisi'));
+		if($valid->run()===FALSE) {
+			// End validasi
+			$data = array(	'title' 	=> 'Tambah Step Resep',
+							'resep'		=> $resep,
+							'isi'		=> 'admin/resep/tambahstepresep'
+						);
+			$this->load->view('admin/layout/wrapper', $data, FALSE);
+		}else{
+			// Masuk database
+			$i = $this->input;
+			$data = array(	'bahan_id'		=> $i->post('id'),
+							'takaran'		=> $i->post('takaran'),
+							'resep_id'		=> $id_resep
+						);
+			$this->Resep_model->tambahbahanresep($data);
+			$this->session->set_flashdata('sukses', 'Data telah ditambah');
+			redirect(base_url('admin/resep/detail/'.$id_resep),'refresh');
+		}
+		// End masuk database
+	}
+
 	// Delete Step Resep
 	public function deletestepresep($id_step_resep)
 	{
