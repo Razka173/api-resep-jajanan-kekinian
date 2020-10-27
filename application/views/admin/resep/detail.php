@@ -94,7 +94,7 @@ if($this->session->flashdata('sukses')){
 		</tr>
 	</thead>
 	<tbody>
-		<?php $no=1; foreach($stepresep as $stepresep) {?>
+		<?php $number=1; foreach($stepresep as $stepresep) {?>
 		<tr>
 			<td><?php echo $stepresep->nomor_step ?></td>
 			<td><?php echo $stepresep->intruksi ?></td>
@@ -104,6 +104,6 @@ if($this->session->flashdata('sukses')){
 				<?php include('deletestepresep.php') ?>
 			</td>
 		</tr>
-		<?php $no++; } ?>
+		<?php $number++; } ?>
 	</tbody>
 </table>

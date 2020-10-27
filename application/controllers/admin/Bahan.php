@@ -183,7 +183,6 @@ class Bahan extends CI_Controller {
 	// Delete Bahan
 	public function delete($id_bahan)
 	{
-		
 		$bahan = $this->Bahan_model->detail($id_bahan);
 		// Proses hapus gambar
 		$gambar = $bahan->gambar;

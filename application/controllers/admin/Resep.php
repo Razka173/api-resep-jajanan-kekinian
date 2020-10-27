@@ -228,7 +228,6 @@ class Resep extends CI_Controller {
 		$valid = $this->form_validation;
 		$valid->set_rules('takaran','Takaran','required',
 			array(	'required'		=> '%s harus diisi'));
-
 		if($valid->run()===FALSE) {
 			// End validasi
 			$data = array(	'title' 	=> 'Tambah Ingredient Resep',
@@ -237,7 +236,6 @@ class Resep extends CI_Controller {
 							'isi'		=> 'admin/resep/tambahbahanresep'
 						);
 			$this->load->view('admin/layout/wrapper', $data, FALSE);
-		
 		}else{
 			// Masuk database
 			$i = $this->input;
@@ -297,7 +295,16 @@ class Resep extends CI_Controller {
 		// End masuk database
 	}
 
-	
+	// Delete Step Resep
+	public function deletestepresep($id_step_resep)
+	{
+		$step_resep = $this->Resep_model->detailStepResep($id_step_resep);
+		$resep_id = $step_resep->resep_id;
+		$data = array('id'	=> $id_step_resep);
+		$this->Resep_model->deleteStepResep($data);
+		$this->session->set_flashdata('sukses', 'Data step resep telah dihapus');
+		redirect(base_url('admin/resep/detail/'.$resep_id),'refresh');
+	}
 }
 
 /* End of file Produk.php */

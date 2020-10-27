@@ -108,20 +108,20 @@ class Resep_model extends CI_model
         return $query->row();
     }
 
-    // Tambah
+    // Tambah Resep
     public function tambah($data)
     {
         $this->db->insert('resep', $data);
     }
 
-    // Edit
+    // Edit Resep
     public function edit($data)
     {
         $this->db->where('id', $data['id']);
         $this->db->update('resep',$data);
     }
 
-    // Delete
+    // Delete Resep
     public function delete($data)
     {
         $this->db->where('id', $data['id']);
@@ -151,6 +151,26 @@ class Resep_model extends CI_model
         return $query->row();
     }
 
+    // Tambah Bahan Resep
+    public function tambahBahanResep($data)
+    {
+        $this->db->insert('bahan_resep', $data);
+    }
+
+    // Edit Bahan Resep
+    public function editBahanResep($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('bahan_resep',$data);
+    }
+
+    // Delete Bahan Resep
+    public function deleteBahanResep($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->delete('bahan_resep');
+    }
+
     // Listing Step Resep 
     public function listingStep($id_resep)
     {
@@ -171,23 +191,23 @@ class Resep_model extends CI_model
         return $query->row();
     }
 
-    // Tambah Bahan Resep
-    public function tambahBahanResep($data)
+    // Tambah Step Resep
+    public function tambahStepResep($data)
     {
-        $this->db->insert('bahan_resep', $data);
+        $this->db->insert('Step_resep', $data);
     }
 
-    // Edit Bahan Resep
-    public function editBahanResep($data)
+    // Edit Step Resep
+    public function editStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('bahan_resep',$data);
+        $this->db->update('Step_resep',$data);
     }
 
-    // Delete Bahan Resep
-    public function deleteBahanResep($data)
+    // Delete Step Resep
+    public function deleteStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->delete('bahan_resep');
+        $this->db->delete('Step_resep');
     }
 }

@@ -1,10 +1,10 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-<?php echo $stepresep->id ?>">
+<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-step<?php echo $stepresep->id ?>">
 	<i class="fa fa-trash"></i> Hapus
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="delete-<?php echo $stepresep->id ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-step<?php echo $stepresep->id ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
       		<div class="modal-header">
