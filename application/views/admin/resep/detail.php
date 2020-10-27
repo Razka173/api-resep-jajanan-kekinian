@@ -5,7 +5,7 @@
 	<a href="<?php echo base_url('admin/resep/tambahbahanresep/'.$resep->id) ?>" class="btn btn-success btn-lg">
 		<i class="fa fa-plus"></i> Tambah Bahan
 	</a>
-	<a href="<?php echo base_url('admin/resep') ?>" class="btn btn-info btn-lg">
+	<a href="<?php echo base_url('admin/resep/tambahstepresep/'.$resep->id) ?>" class="btn btn-info btn-lg">
 		<i class="fa fa-plus"></i> Tambah Step
 	</a>
 	<a href="<?php echo base_url('admin/resep/edit/'.$resep->id) ?>" class="btn btn-warning btn-lg"><i class="fa fa-edit"></i> Edit Resep
@@ -38,7 +38,7 @@ if($this->session->flashdata('sukses')){
 	<tbody>
 		<tr>
 			<td>
-				<img src="<?php echo $resep->gambar ?>" class="img img-responsive img-thumbnail" width=200 alt="">
+				<img src="<?php echo base_url('assets/img/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width=200 alt="">
 			</td>
 			<td><?php echo $resep->nama ?></td>
 			<td><?php echo $resep->waktu_memasak ?></td>

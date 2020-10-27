@@ -37,7 +37,7 @@ class Bahan extends CI_Controller {
 			$nama_bahan = $this->input->post('nama_bahan');
 			$nama_file = strtolower(str_replace(' ', '', $nama_bahan));
 			$config['file_name']		= $nama_file;
-			$config['upload_path'] 		= 'assets/img/bahan/';
+			$config['upload_path'] 		= './assets/img/bahan/';
 			$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
 			$config['max_size']  		= '5400';//Dalam KB
 			$config['max_width']  		= '3048';
@@ -61,7 +61,7 @@ class Bahan extends CI_Controller {
 				$config['image_library'] 	= 'gd2';
 				$config['source_image'] 	= './assets/img/bahan/'.$upload_gambar['upload_data']['file_name'];
 				// lokasi folder thumbnail
-				$config['new_image']		= './assets/img/thumbs/';
+				$config['new_image']		= './assets/img/bahan/thumbs/';
 				$config['create_thumb'] 	= TRUE;
 				$config['maintain_ratio'] 	= TRUE;
 				$config['width']         	= 250;//Pixel
@@ -76,7 +76,7 @@ class Bahan extends CI_Controller {
 				$i = $this->input;
 				$data = array(	'nama'		=> $i->post('nama_bahan'),
 								// Disimpan nama file gambar
-								'gambar'	=> base_url('assets/img/bahan/'.$upload_gambar['upload_data']['file_name']),
+								'gambar'	=> $upload_gambar['upload_data']['file_name'],
 							);
 				$this->Bahan_model->tambah($data);
 				$this->session->set_flashdata('sukses', 'Data telah ditambah');
@@ -94,10 +94,10 @@ class Bahan extends CI_Controller {
 	public function edit($id_bahan)
 	{
 		// Ambil data bahan yang akan diedit
-		$bahan 	= $this->Bahan_model->detail($id_bahan);
+		$bahan = $this->Bahan_model->detail($id_bahan);
 
 		// Validasi input
-		$valid 		= $this->form_validation;
+		$valid = $this->form_validation;
 
 		$valid->set_rules('nama_bahan','Nama Bahan','required',
 			array(	'required'		=> '%s harus diisi'));
@@ -148,11 +148,8 @@ class Bahan extends CI_Controller {
 
 					$data = array(	'id'				=> $bahan->id,
 									'nama'				=> $i->post('nama_bahan'),
-									'waktu_memasak'		=> $i->post('waktu_memasak'),
-									'porsi'				=> $i->post('porsi'),
-									'harga'				=> $i->post('harga'),
 									// Disimpan nama file gambar
-									'gambar'			=> base_url($nama_file),
+									'gambar'			=> $upload_gambar['upload_data']['file_name'],
 								);
 					$this->Bahan_model->edit($data);
 					$this->session->set_flashdata('sukses', 'Data telah diedit');
@@ -162,12 +159,9 @@ class Bahan extends CI_Controller {
 			// Edit bahan tanpa ganti gambar
 				$i = $this->input;
 			
-			$data = array(	'id'				=> $bahan->id,
-							'nama'				=> $i->post('nama_bahan'),
-							'waktu_memasak'		=> $i->post('waktu_memasak'),
-							'porsi'				=> $i->post('porsi'),
-							'harga'				=> $i->post('harga'),
-						);
+				$data = array(	'id'				=> $bahan->id,
+								'nama'				=> $i->post('nama_bahan'),
+							);
 			$this->Bahan_model->edit($data);
 			$this->session->set_flashdata('sukses', 'Data telah diedit');
 			redirect(base_url('admin/bahan'),'refresh');
@@ -187,11 +181,11 @@ class Bahan extends CI_Controller {
 		// Proses hapus gambar
 		$gambar = $bahan->gambar;
 		$nama_file = strtolower(str_replace(base_url(), '', $gambar));
-		if(file_exists('./assets/img/bahan'.$nama_file)){
-    		unlink('./assets/img/bahan'.$nama_file);
+		if(file_exists('./assets/img/bahan/'.$nama_file)){
+    		unlink('./assets/img/bahan/'.$nama_file);
     	}
-    	if(file_exists('./assets/img/thumbs/'.$nama_file)){
-    		unlink('./assets/img/thumbs/'.$nama_file);
+    	if(file_exists('./assets/img/bahan/thumbs/'.$nama_file)){
+    		unlink('./assets/img/bahan/thumbs/'.$nama_file);
     	}
 		// End proses hapus
 		$data = array('id'	=> $id_bahan);

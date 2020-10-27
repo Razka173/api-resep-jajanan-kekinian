@@ -32,7 +32,7 @@ if($this->session->flashdata('sukses')){
 		<tr>
 			<td><?php echo $no ?></td>
 			<td>
-				<img src="<?php echo $resep->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="">
+				<img src="<?php echo base_url('assets/img/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="">
 			</td>
 			<td><?php echo $resep->nama ?></td>
 			<td><?php echo $resep->waktu_memasak ?></td>

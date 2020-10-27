@@ -79,7 +79,7 @@ class Resep extends CI_Controller {
 								'porsi'				=> $i->post('porsi'),
 								'harga'				=> $i->post('harga'),
 								// Disimpan nama file gambar
-								'gambar'			=> base_url('assets/img/'.$upload_gambar['upload_data']['file_name']),
+								'gambar'			=> $upload_gambar['upload_data']['file_name'],
 							);
 				$this->Resep_model->tambah($data);
 				$this->session->set_flashdata('sukses', 'Data telah ditambah');
@@ -155,7 +155,7 @@ class Resep extends CI_Controller {
 									'porsi'				=> $i->post('porsi'),
 									'harga'				=> $i->post('harga'),
 									// Disimpan nama file gambar
-									'gambar'			=> base_url($nama_file),
+									'gambar'			=> $upload_gambar['upload_data']['file_name'],
 								);
 					$this->Resep_model->edit($data);
 					$this->session->set_flashdata('sukses', 'Data telah diedit');
@@ -300,28 +300,65 @@ class Resep extends CI_Controller {
 	{
 		// Passing Data
 		$resep = $this->Resep_model->detail($id_resep);
+		$liststep = $this->Resep_model->listingStep($id_resep);
+		$nomor_step = count($liststep)+1;
 
 		// Validasi input
 		$valid = $this->form_validation;
-		$valid->set_rules('takaran','Takaran','required',
+		$valid->set_rules('instruksi','Instruksi','required',
 			array(	'required'		=> '%s harus diisi'));
+
 		if($valid->run()===FALSE) {
 			// End validasi
 			$data = array(	'title' 	=> 'Tambah Step Resep',
 							'resep'		=> $resep,
+							'nomor_step'=> $nomor_step,
 							'isi'		=> 'admin/resep/tambahstepresep'
 						);
 			$this->load->view('admin/layout/wrapper', $data, FALSE);
 		}else{
 			// Masuk database
 			$i = $this->input;
-			$data = array(	'bahan_id'		=> $i->post('id'),
-							'takaran'		=> $i->post('takaran'),
+			$data = array(	'intruksi'		=> $i->post('instruksi'),
+							'nomor_step'	=> $i->post('nomor_step'),
 							'resep_id'		=> $id_resep
 						);
-			$this->Resep_model->tambahbahanresep($data);
+			$this->Resep_model->tambahstepresep($data);
 			$this->session->set_flashdata('sukses', 'Data telah ditambah');
 			redirect(base_url('admin/resep/detail/'.$id_resep),'refresh');
+		}
+		// End masuk database
+	}
+
+	// Edit Step Resep
+	public function editstepresep($id_step_resep)
+	{
+		$step_resep = $this->Resep_model->detailStepResep($id_step_resep);
+
+		// Validasi input
+		$valid = $this->form_validation;
+
+		$valid->set_rules('intruksi','Intruksi','required',
+			array(	'required'		=> '%s harus diisi'));
+
+		if($valid->run()===FALSE) {
+			// End validasi
+			$data = array(	'title' 		=> 'Edit Bahan Resep',
+							'step_resep'	=> $step_resep,
+							'isi'			=> 'admin/resep/editstepresep',
+						);
+			$this->load->view('admin/layout/wrapper', $data, FALSE);
+		
+		}else{
+			// Masuk database
+			$i = $this->input;
+			$data = array(	'id'			=> $id_step_resep,
+							'nomor_step'	=> $i->post('nomor_step'),
+							'intruksi'		=> $i->post('intruksi')
+						);
+			$this->Resep_model->editStepResep($data);
+			$this->session->set_flashdata('sukses', 'Data telah diedit');
+			redirect(base_url('admin/resep/detail/'.$step_resep->resep_id),'refresh');
 		}
 		// End masuk database
 	}

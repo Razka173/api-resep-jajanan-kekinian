@@ -10,11 +10,11 @@ if(isset($error)) {
 echo validation_errors('<div class="alert alert-warning">','</div>');
 
 // Form open
-echo form_open_multipart(base_url('admin/resep/tambahstepresep/'.$resep->id),' class="form-horizontal"');
+echo form_open_multipart(base_url('admin/resep/editstepresep/'.$step_resep->id),' class="form-horizontal"');
 ?>
 
 <p>
-	<a href="<?php echo base_url('admin/resep/detail/'.$resep->id) ?>" class="btn btn-primary btn-lg">
+	<a href="<?php echo base_url('admin/resep/detail/'.$step_resep->id) ?>" class="btn btn-primary btn-lg">
 		<i class="fa fa-angle-left"></i> Kembali
 	</a>
 </p>
@@ -22,15 +22,15 @@ echo form_open_multipart(base_url('admin/resep/tambahstepresep/'.$resep->id),' c
 <div class="form-group row">
 	<label class="col-md-2 control-label" for="nomor_step">Nomor Step</label>
 	<div class="col-md-5">
-		<input type="number" name="nomor_step" id="nomor_step" class="form-control" placeholder=" <?php echo $nomor_step ?>" value="<?php echo $nomor_step ?>" required readonly>
+		<input type="number" name="nomor_step" id="nomor_step" class="form-control" placeholder=" <?php echo $step_resep->nomor_step ?>" value="<?php echo $step_resep->nomor_step ?>" required>
 	</div>
 </div>
 <hr>
 
 <div class="form-group form-group row">
-	<label class="col-md-2 control-label" for="instruksi">Instruksi Resep</label>
+	<label class="col-md-2 control-label" for="intruksi">Intruksi Resep</label>
 	<div class="col-md-5">
-		<input type="textarea" name="instruksi" id="instruksi" class="form-control" placeholder="Instruksi Resep (Contoh: Masak bahan hingga matang)" value="<?php echo set_value('instruksi') ?>" required>
+		<input type="textarea" name="intruksi" id="intruksi" class="form-control" placeholder="Instruksi Resep (Contoh: Masak bahan hingga matang)" value="<?php echo $step_resep->intruksi ?>" required>
 	</div>
 </div>
 <hr>

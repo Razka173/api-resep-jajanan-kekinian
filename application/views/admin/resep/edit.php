@@ -62,7 +62,7 @@ echo form_open_multipart(base_url('admin/resep/edit/'.$resep->id),' class="form-
 <div class="form-group row">
 	<label class="col-md-2 control-label">Gambar Sebelumnya</label>
 	<div class="col-md-5">
-		<img src="<?php echo $resep->gambar ?>" class="img img-responsive img-thumbnail" width="200" alt="No Picture">
+		<img src="<?php echo base_url('assets/img/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width="200" alt="No Picture">
 	</div>
 </div>
 <hr>
