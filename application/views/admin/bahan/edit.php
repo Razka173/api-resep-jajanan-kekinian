@@ -14,7 +14,7 @@ echo form_open_multipart(base_url('admin/bahan/edit/'.$bahan->id),' class="form-
 ?>
 
 <p>
-	<a href="<?php echo base_url('admin/bahan/detail/'.$bahan->id) ?>" class="btn btn-primary btn-lg">
+	<a href="<?php echo base_url('admin/bahan/') ?>" class="btn btn-primary btn-lg">
 		<i class="fa fa-angle-left"></i> Kembali
 	</a>
 </p>

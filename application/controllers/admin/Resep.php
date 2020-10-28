@@ -111,7 +111,7 @@ class Resep extends CI_Controller {
 				$nama_resep = $this->input->post('nama_resep');
 				$nama_file = strtolower(str_replace(' ', '', $nama_resep));
 				$config['file_name']		= $nama_file;
-				$config['upload_path'] 		= './assets/img/';
+				$config['upload_path'] 		= './assets/img/bahan/';
 				$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
 				$config['max_size']  		= '5400';//Dalam KB
 				$config['max_width']  		= '3048';

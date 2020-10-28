@@ -108,7 +108,7 @@ class Bahan extends CI_Controller {
 				$nama_bahan = $this->input->post('nama_bahan');
 				$nama_file = strtolower(str_replace(' ', '', $nama_bahan));
 				$config['file_name']		= $nama_file;
-				$config['upload_path'] 		= './assets/img/';
+				$config['upload_path'] 		= './assets/img/bahan/';
 				$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
 				$config['max_size']  		= '5400';//Dalam KB
 				$config['max_width']  		= '3048';
@@ -130,9 +130,9 @@ class Bahan extends CI_Controller {
 
 					// Create thumbnail gambar
 					$config['image_library'] 	= 'gd2';
-					$config['source_image'] 	= './assets/img/'.$upload_gambar['upload_data']['file_name'];
+					$config['source_image'] 	= './assets/img/bahan/'.$upload_gambar['upload_data']['file_name'];
 					// lokasi folder thumbnail
-					$config['new_image']		= './assets/img/thumbs/';
+					$config['new_image']		= './assets/img/bahan/thumbs/';
 					$config['create_thumb'] 	= TRUE;
 					$config['maintain_ratio'] 	= TRUE;
 					$config['width']         	= 250;//Pixel
