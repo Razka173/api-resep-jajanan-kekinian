@@ -222,7 +222,7 @@ class Resep extends CI_Controller {
 	{
 		// Passing Data
 		$resep = $this->Resep_model->detail($id_resep);
-		$listbahan = $this->Bahan_model->listing();
+		$listbahan = $this->Bahan_model->listingSort();
 
 		// Validasi input
 		$valid = $this->form_validation;

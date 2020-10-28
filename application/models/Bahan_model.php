@@ -39,6 +39,16 @@ class Bahan_model extends CI_model
     {
         $this->db->select('*');
         $this->db->from('bahan');
+        $this->db->order_by('id', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    // Listing all
+    public function listingSort()
+    {
+        $this->db->select('*');
+        $this->db->from('bahan');
         $this->db->order_by('nama', 'asc');
         $query = $this->db->get();
         return $query->result();
