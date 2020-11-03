@@ -47,6 +47,8 @@ class Users extends RESTController
                     $Users = $this->Users->getUsers($id = null, $s = null, $email, $pass);
                 } else if ($s != null) {
                     $Users = $this->Users->getUsers($id = null, $s, $email = null, $pass);
+                } else if ($id != null) {
+                    $Users = $this->Users->getUsers($id, $s = null, $email = null, $pass);
                 } else {
                     $this->response([
                         'status' => false,
@@ -95,11 +97,17 @@ class Users extends RESTController
     {
         $id = $this->put('id');
         $pass = $this->put('pass_old');
-        $data = [
-            'nama' => $this->put('nama'),
-            'email' => $this->put('email'),
-            'password' => password_hash($this->put('pass_new'), PASSWORD_DEFAULT),
-        ];
+        $foto = $this->put('foto');
+        if ($this->put('nama') != null) $data['nama'] = $this->put('nama');
+        if ($this->put('email')!= null) $data['email'] = $this->put('email');
+        if ($this->put('pass_new') != null) $data['password'] = password_hash($this->put('pass_new'), PASSWORD_DEFAULT);
+        if ($foto != null) {
+            $path = "assets/img/users/";
+            $filename = $id .'img'.rand(1,100).'.' . 'jpeg';
+            if(file_put_contents($path . $filename, base64_decode($foto))) {
+                $data['foto'] = $filename;
+            }
+        }
 
         if ($this->Users->updateUser($data, $id, $pass) > 0) {
             // Success

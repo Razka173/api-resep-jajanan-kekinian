@@ -8,7 +8,11 @@ class Diskusi_model extends CI_model
         if ($id != null) {
             return $this->db->get_where('diskusi', ['id' => $id])->result_array();
         } else {
-            return $this->db->get_where('diskusi', ['resep_id' => $resep_id])->result_array();
+            $this->db->select("`diskusi`.`id`, `diskusi`.`isi`,`diskusi`.`user_id`,`users`.`nama`,`diskusi`.`disukai`, `diskusi`.`tanggal`");
+            $this->db->from('diskusi');
+            $this->db->join('users', '`users`.`id`= `diskusi`.`user_id`', 'inner');
+            $this->db->where('resep_id', $resep_id);
+            return $this->db->get()->result_array();
         }
         return $this->db->get('diskusi')->result_array();
     }

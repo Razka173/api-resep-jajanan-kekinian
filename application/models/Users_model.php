@@ -20,6 +20,13 @@ class Users_model extends CI_model
                         return $user;
                     }
                 }
+            } else if ($id != null) {
+                $user = $this->db->get_where('users', ['id' => $id])->result_array();
+                if ($user != null) {
+                    if (password_verify($pass, $user[0]['password'])) {
+                        return $user;
+                    }
+                }
             }
         } else {
             $this->db->select('id, nama, email, foto');
