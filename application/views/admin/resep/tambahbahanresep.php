@@ -5,6 +5,12 @@ if(isset($error)) {
 	echo $error;
 	echo '</p>';
 }
+// Notifikasi
+if($this->session->flashdata('sukses')){
+	echo '<p class="alert alert-success">';
+	echo $this->session->flashdata('sukses');
+	// echo '</div>';
+}
 
 // Notifikasi error
 echo validation_errors('<div class="alert alert-warning">','</div>');

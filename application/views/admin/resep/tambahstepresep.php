@@ -5,6 +5,12 @@ if(isset($error)) {
 	echo $error;
 	echo '</p>';
 }
+// Notifikasi
+if($this->session->flashdata('sukses')){
+	echo '<p class="alert alert-success">';
+	echo $this->session->flashdata('sukses');
+	// echo '</div>';
+}
 
 // Notifikasi error
 echo validation_errors('<div class="alert alert-warning">','</div>');
@@ -30,7 +36,7 @@ echo form_open_multipart(base_url('admin/resep/tambahstepresep/'.$resep->id),' c
 <div class="form-group form-group row">
 	<label class="col-md-2 control-label" for="instruksi">Instruksi Resep</label>
 	<div class="col-md-5">
-		<input type="textarea" name="instruksi" id="instruksi" class="form-control" placeholder="Instruksi Resep (Contoh: Masak bahan hingga matang)" value="<?php echo set_value('instruksi') ?>" required>
+		<textarea name="instruksi" id="instruksi" class="form-control" placeholder="Instruksi Resep (Contoh: Masak bahan hingga matang)" required></textarea>
 	</div>
 </div>
 <hr>

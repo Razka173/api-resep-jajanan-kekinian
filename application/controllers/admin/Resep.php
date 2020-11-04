@@ -245,7 +245,7 @@ class Resep extends CI_Controller {
 						);
 			$this->Resep_model->tambahbahanresep($data);
 			$this->session->set_flashdata('sukses', 'Data telah ditambah');
-			redirect(base_url('admin/resep/detail/'.$id_resep),'refresh');
+			redirect(base_url('admin/resep/tambahbahanresep/'.$id_resep),'refresh');
 		}
 		// End masuk database
 	}
@@ -325,7 +325,7 @@ class Resep extends CI_Controller {
 						);
 			$this->Resep_model->tambahstepresep($data);
 			$this->session->set_flashdata('sukses', 'Data telah ditambah');
-			redirect(base_url('admin/resep/detail/'.$id_resep),'refresh');
+			redirect(base_url('admin/resep/tambahstepresep/'.$id_resep),'refresh');
 		}
 		// End masuk database
 	}

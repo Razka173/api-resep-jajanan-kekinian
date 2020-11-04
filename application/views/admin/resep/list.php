@@ -46,6 +46,10 @@ if($this->session->flashdata('sukses')){
 				<?php include('delete.php') ?>
 
 				<a href="<?php echo base_url('admin/resep/detail/'.$resep->id) ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Detail</a>
+
+				<a href="<?php echo base_url('admin/resep/tambahstepresep/'.$resep->id) ?>" class="btn btn-secondary btn-xs"><i class="fa fa-plus"></i> Step</a>
+
+				<a href="<?php echo base_url('admin/resep/tambahbahanresep/'.$resep->id) ?>" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Bahan</a>
 			</td>
 		</tr>
 		<?php $no++; } ?>
