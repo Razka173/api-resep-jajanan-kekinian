@@ -12,7 +12,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
+      <!-- DASHBOARD -->
       <li class="nav-item <?php if(strpos(strtolower($title),'administrator')){echo 'active';} ?>">
         <a class="nav-link" href="<?php echo base_url('admin/dasbor') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -21,7 +21,7 @@
 
       <!-- MENU RESEP -->
       <li class="nav-item <?php if(strpos(strtolower($title),'resep')){echo 'active';} ?>">
-        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseResep" aria-expanded="true" aria-controls="collapseResep">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseResep" aria-expanded="true" aria-controls="collapseResep">
           <i class="fas fa-fw fa-hamburger"></i>
           <span>Data Resep</span>
         </a>
@@ -36,7 +36,7 @@
 
       <!-- MENU BAHAN -->
       <li class="nav-item <?php if(strpos(strtolower($title),'bahan')){echo 'active';} ?>">
-        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseBahan" aria-expanded="true" aria-controls="collapseBahan">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBahan" aria-expanded="true" aria-controls="collapseBahan">
           <i class="fas fa-fw fa-cheese"></i>
           <span>Data Bahan</span>
         </a>
@@ -48,6 +48,14 @@
           </div>
         </div>
       </li>
+
+      <!-- DISKUSI -->
+      <li class="nav-item <?php if(strpos(strtolower($title),'diskusi')){echo 'active';} ?>">
+        <a class="nav-link" href="<?php echo base_url('admin/diskusi') ?>">
+          <i class="fas fa-fw fa-comment"></i>
+          <span>Diskusi</span></a>
+      </li>
+
 
       <!-- MENU STEP RESEP -->
       <!-- <li class="nav-item <?php if(strpos(strtolower($title),'step')){echo 'active';} ?>">
