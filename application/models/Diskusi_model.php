@@ -34,4 +34,39 @@ class Diskusi_model extends CI_model
         $this->db->delete('diskusi', ['id' => $id]);
         return $this->db->affected_rows();
     }
+
+    // Listing all Diskusi
+    public function listing()
+    {
+        $this->db->select(  'diskusi.*,
+                            resep.nama as nama_resep,
+                            users.nama as nama_user
+                            ');
+        $this->db->from('diskusi');
+        $this->db->join('resep', 'resep_id = resep.id', 'left');
+        $this->db->join('users', 'user_id = users.id', 'left');
+        $this->db->order_by('id', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    // Tambah
+    public function tambah($data)
+    {
+        $this->db->insert('diskusi', $data);
+    }
+
+    // Edit
+    public function edit($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->update('diskusi',$data);
+    }
+
+    // Delete
+    public function delete($data)
+    {
+        $this->db->where('id', $data['id']);
+        $this->db->delete('diskusi',$data);
+    }
 }
