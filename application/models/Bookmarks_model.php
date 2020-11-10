@@ -35,9 +35,10 @@ class Bookmarks_model extends CI_model
         return $this->db->affected_rows();
     }
 
-    public function deleteBookmark($id)
+    public function deleteBookmark($id = null,$user_id = null, $resep_id = null)
     {
-        $this->db->delete('bookmark', ['id' => $id]);
+        if ($id != null) $this->db->delete('bookmark', ['id' => $id]);
+        else $this->db->delete('bookmark', ['user_id' => $user_id, 'resep_id' => $resep_id]);
         $this->updateBookmarkResep();
         return $this->db->affected_rows();
     }
