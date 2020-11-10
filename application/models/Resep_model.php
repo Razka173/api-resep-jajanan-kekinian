@@ -194,20 +194,20 @@ class Resep_model extends CI_model
     // Tambah Step Resep
     public function tambahStepResep($data)
     {
-        $this->db->insert('Step_resep', $data);
+        $this->db->insert('step_resep', $data);
     }
 
     // Edit Step Resep
     public function editStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('Step_resep',$data);
+        $this->db->update('step_resep',$data);
     }
 
     // Delete Step Resep
     public function deleteStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->delete('Step_resep');
+        $this->db->delete('step_resep');
     }
 }

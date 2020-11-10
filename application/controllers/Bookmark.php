@@ -106,7 +106,7 @@ class Bookmark extends RESTController
                     'status' => true,
                     'id' => $id,
                     'message' => 'Successfully deleted'
-                ], 204);
+                ], 202);
             } else {
                 // id not found
                 $this->response([
