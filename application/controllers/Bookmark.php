@@ -93,12 +93,32 @@ class Bookmark extends RESTController
     public function index_delete()
     {
         $id = $this->delete('id');
+        $user_id = $this->delete('user_id');
+        $resep_id = $this->delete('resep_id');
 
         if ($id === null) {
+            if ($user_id === null || $resep_id === null) {
             $this->response([
                 'status' => false,
                 'message' => 'Provide an id'
             ], 400);
+            } else {
+                if ($this->Bookmarks->deleteBookmark($id = null, $user_id, $resep_id) > 0) {
+                // Success
+                $this->response([
+                    'status' => true,
+                    'user_id' => $user_id,
+                    'resep_id' => $resep_id,
+                    'message' => 'Successfully deleted'
+                ], 202);
+            } else {
+                // id not found
+                $this->response([
+                    'status' => false,
+                    'message' => 'Id not found'
+                ], 400);
+            }
+            }
         } else {
             if ($this->Bookmarks->deleteBookmark($id) > 0) {
                 // Success
