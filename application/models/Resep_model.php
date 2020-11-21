@@ -69,6 +69,58 @@ class Resep_model extends CI_model
         return $this->db->get('resep')->result_array();
     }
 
+    public function getResep2Bahan($id = null, $nama = null, $limit = null, $bahan1 = null, $bahan2 = null, $order = null)
+    {
+        if ($limit === null) {
+            $limit = 10;
+        }
+        if ($id != null) {
+            # Info resep
+            $resep['info'] = $this->db->get_where('resep', ['id' => $id])->result_array();
+            return $resep;
+        }
+        else if ($nama != null) {
+            if ($order) $this->db->order_by($order, "DESC");
+            $this->db->like('nama', $nama);
+        }
+        else if ($bahan1 != null && $bahan2 != null) {
+            // Find input to 'bahan' table
+            $bahan = array($bahan1, $bahan2);
+            $this->db->select('bahan.id');
+            $this->db->from('bahan');
+            $this->db->where_in('nama', $bahan);
+
+            // Place ID target to an array
+            $bahan_ids = $this->db->get()->result_array();
+            $bahan_id = array();
+            foreach ($bahan_ids as $id) {
+                array_push($bahan_id, (int) $id['id']);
+            }
+
+            // Find the target in 'bahan_resep' table
+            $this->db->select('bahan_resep.resep_id');
+            $this->db->from('bahan_resep');
+            $this->db->where_in('bahan_id', $bahan_id);
+
+            // Place ID target to an array
+            $resep_ids = $this->db->get()->result_array();
+            $resep_id = array();
+            foreach ($resep_ids as $id) {
+                array_push($resep_id, (int)$id['resep_id']);
+            }
+            
+            $this->db->select('*');
+            $this->db->from('resep');
+            $this->db->where_in('id', $resep_id);
+            $this->db->limit($limit);
+            if ($order) $this->db->order_by($order, "DESC");
+            return $this->db->get()->result_array();
+        }
+        $this->db->limit($limit);
+        if ($order) $this->db->order_by($order, "DESC");
+        return $this->db->get('resep')->result_array();
+    }
+
     public function createResep($data)
     {
         $this->db->insert('resep', $data);
