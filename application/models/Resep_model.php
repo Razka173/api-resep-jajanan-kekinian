@@ -84,34 +84,39 @@ class Resep_model extends CI_model
             $this->db->like('nama', $nama);
         }
         else if ($bahan1 != null && $bahan2 != null) {
+
             // Find input to 'bahan' table
             $bahan = array($bahan1, $bahan2);
             $this->db->select('bahan.id');
             $this->db->from('bahan');
             $this->db->where_in('nama', $bahan);
-
-            // Place ID target to an array
+            // Place ID target to an 'bahan' array
             $bahan_ids = $this->db->get()->result_array();
             $bahan_id = array();
             foreach ($bahan_ids as $id) {
                 array_push($bahan_id, (int) $id['id']);
             }
 
-            // Find the target in 'bahan_resep' table
+            // Find the 'bahan' in 'bahan_resep' table
             $this->db->select('bahan_resep.resep_id');
             $this->db->from('bahan_resep');
             $this->db->where_in('bahan_id', $bahan_id);
 
-            // Place ID target to an array
+            // Place result into an array
             $resep_ids = $this->db->get()->result_array();
-            $resep_id = array();
-            foreach ($resep_ids as $id) {
-                array_push($resep_id, (int)$id['resep_id']);
+            $result = array();
+            foreach ($resep_ids as $resep_id) {
+                $this->db->select('*');
+                $this->db->from('bahan_resep');
+                $this->db->where('resep_id', $resep_id['resep_id']);
+                $this->db->where_in('bahan_id', $bahan_id);
+                $query = $this->db->get();
+                array_push($result, $query->row()->resep_id);
             }
             
             $this->db->select('*');
             $this->db->from('resep');
-            $this->db->where_in('id', $resep_id);
+            $this->db->where_in('id', $result);
             $this->db->limit($limit);
             if ($order) $this->db->order_by($order, "DESC");
             return $this->db->get()->result_array();
