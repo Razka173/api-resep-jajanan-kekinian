@@ -116,14 +116,14 @@ class Resep_model extends CI_model
                     }
                     array_push($result, $query->resep_id);
                 }
-            if(count($result) > 0){
-                $this->db->select('*');
-                $this->db->from('resep');
-                $this->db->where_in('id', $result);
-                $this->db->limit($limit);
-                if ($order) $this->db->order_by($order, "DESC");
-                return $this->db->get()->result_array();
-            }
+                if(count($result) > 0){
+                    $this->db->select('*');
+                    $this->db->from('resep');
+                    $this->db->where_in('id', $result);
+                    $this->db->limit($limit);
+                    if ($order) $this->db->order_by($order, "DESC");
+                    return $this->db->get()->result_array();
+                }
             }
         }
     }
