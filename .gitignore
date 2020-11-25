@@ -2,3 +2,15 @@ database.php
 assets/img/*.jpg
 assets/img/*.jpeg
 assets/img/*.png
+assets/img/bahan/*.jpg
+assets/img/bahan/*.jpeg
+assets/img/bahan/*.png
+assets/img/bahan/thumbs/*.jpg
+assets/img/bahan/thumbs/*.jpeg
+assets/img/bahan/thumbs/*.png
+assets/img/thumbs/*.jpg
+assets/img/thumbs/*.jpeg
+assets/img/thumbs/*.png
+assets/img/users/*.jpg
+assets/img/users/*.jpeg
+assets/img/users/*.png
