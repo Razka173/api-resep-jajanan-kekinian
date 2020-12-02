@@ -3,7 +3,7 @@
 class Resep_users_model extends CI_model
 {
 
-    public function getResep($id = null, $user = null, $nama = null, $limit = null, $bahan = null, $order = null)
+    public function getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null, $user = null)
     {
         if ($limit === null) {
             $limit = 10;
@@ -46,6 +46,13 @@ class Resep_users_model extends CI_model
             $this->db->select('*');
             $this->db->from('resep_users');
             $this->db->where_in('id', $resep_id);
+            $this->db->limit($limit);
+            if ($order) $this->db->order_by($order, "DESC");
+            return $this->db->get()->result_array();
+        } else if ($user != null) {
+            $this->db->select('*');
+            $this->db->from('resep_users');
+            $this->db->where('id_users', $user);
             $this->db->limit($limit);
             if ($order) $this->db->order_by($order, "DESC");
             return $this->db->get()->result_array();

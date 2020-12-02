@@ -16,13 +16,13 @@ class ResepUsers extends RESTController
     public function index_get()
     {
         $id = $this->get('id');
-        $users = $this->get('id_users');
-        $nama = $this->get('nama_resep');
+        $nama = $this->get('nama');
         $limit = $this->get('limit');
         $bahan = $this->get('bahan');
         $order = $this->get('order');
+        $user = $this->get('user');
 
-        if ($id === null && $nama === null && $bahan === null && $order === null) {
+        if ($id === null && $nama === null && $bahan === null && $order === null && $user === null) {
             $resep = $this->resep->getResep();
         } elseif ($id !== null && $nama !== null && $bahan !== null) {
             $this->response([
@@ -33,7 +33,7 @@ class ResepUsers extends RESTController
             if ($nama != null) {
                 if ($limit != null) {
                     if ($order != null) {
-                        $resep = $this->resep->getResep($id = null, $nama, $limit, $bahan = null, $order);
+                        $resep = $this->resep->getResep($id = null, $nama, $limit, $bahan = null, $order, $user = null);
                     } else {
                         $resep = $this->resep->getResep($id = null, $nama, $limit);
                     }
@@ -54,6 +54,16 @@ class ResepUsers extends RESTController
                 } else {
                     $resep = $this->resep->getResep($id = null, $nama = null, $limit = null, $bahan);
                 }
+            } else if ($user != null) {
+                if ($limit != null) {
+                    if ($order != null) {
+                        $resep = $this->resep->getResep($id = null, $nama = null, $limit, $bahan = null, $order, $user);
+                    } else {
+                        $resep = $this->resep->getResep($id = null, $nama = null, $limit, $bahan = null, $order = null, $user);
+                    }
+                } else {
+                    $resep = $this->resep->getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null, $user);
+                } 
             } else if ($limit != null) {
                 if ($order != null) {
                     $resep = $this->resep->getResep($id = null, $nama = null, $limit, $bahan = null, $order);
