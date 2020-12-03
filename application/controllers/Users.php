@@ -103,9 +103,17 @@ class Users extends RESTController
         if ($this->put('pass_new') != null) $data['password'] = password_hash($this->put('pass_new'), PASSWORD_DEFAULT);
         if ($foto != null) {
             $path = "assets/img/users/";
-            $filename = $id .'img'.rand(1,100).'.' . 'jpeg';
+            $n = 10;
+            $result = bin2hex(random_bytes($n));
+            $filename = $id .'img'.$result.'.' . 'jpeg';
             if(file_put_contents($path . $filename, base64_decode($foto))) {
                 $data['foto'] = $filename;
+                $users = $this->users->detail($id);
+                // Proses hapus foto
+                $gambar = $users->foto;
+                if(file_exists('./assets/img/users/'.$gambar)){
+                    unlink('./assets/img/users/'.$gambar);
+                }
             }
         }
 
