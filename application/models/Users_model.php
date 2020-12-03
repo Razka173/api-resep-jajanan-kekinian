@@ -65,4 +65,15 @@ class Users_model extends CI_model
         }
         return $this->db->affected_rows();
     }
+    
+    // Detail
+    public function detail($id_user)
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id_user);
+        $this->db->order_by('id', 'asc');
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
