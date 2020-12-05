@@ -39,9 +39,9 @@ class Bahan extends CI_Controller {
 			$config['file_name']		= $nama_file;
 			$config['upload_path'] 		= './assets/img/bahan/';
 			$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
-			$config['max_size']  		= '5400';//Dalam KB
-			$config['max_width']  		= '3048';
-			$config['max_height']  		= '3048';
+			$config['max_size']  		= '15400';//Dalam KB
+			$config['max_width']  		= '13048';
+			$config['max_height']  		= '13048';
 			
 			$this->load->library('upload', $config);
 			
@@ -110,9 +110,9 @@ class Bahan extends CI_Controller {
 				$config['file_name']		= $nama_file;
 				$config['upload_path'] 		= './assets/img/bahan/';
 				$config['allowed_types'] 	= 'gif|jpg|png|jpeg';
-				$config['max_size']  		= '5400';//Dalam KB
-				$config['max_width']  		= '3048';
-				$config['max_height']  		= '3048';
+				$config['max_size']  		= '15400';//Dalam KB
+				$config['max_width']  		= '13048';
+				$config['max_height']  		= '13048';
 			
 				$this->load->library('upload', $config);
 				
