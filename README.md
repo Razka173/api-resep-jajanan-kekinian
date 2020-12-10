@@ -1,4 +1,4 @@
-# Sprint 6
+# Sprint 7
 19 Oktober -> 25 Oktober 2020 (Minggu ke-8 Mobile Computing 13)
 
 # Sprint Backlog

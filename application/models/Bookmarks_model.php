@@ -35,14 +35,14 @@ class Bookmarks_model extends CI_model
         return $this->db->affected_rows();
     }
 
-    public function deleteBookmark($id = null,$user_id = null, $resep_id = null)
+    public function deleteBookmark($id = null, $user_id = null, $resep_id = null)
     {
         if ($id != null) $this->db->delete('bookmark', ['id' => $id]);
         else $this->db->delete('bookmark', ['user_id' => $user_id, 'resep_id' => $resep_id]);
         $this->updateBookmarkResep();
         return $this->db->affected_rows();
     }
-    
+
     public function updateBookmarkResep()
     {
         $sql = "UPDATE `resep` SET `resep`.`favorit` = (SELECT COUNT(`bookmark`.`resep_id`) FROM `bookmark` WHERE `resep`.`id` = `bookmark`.`resep_id` GROUP BY `bookmark`.`resep_id`)";
