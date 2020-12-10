@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-class ResepUsers extends RESTController
+class Resepusers extends RESTController
 {
 
     function __construct()
@@ -92,14 +92,14 @@ class ResepUsers extends RESTController
     public function index_post()
     {
         $data = [
-            'id_users' => $this->post('id_users'),
-            'nama_resep' => $this->post('nama'),
-            'waktu_memasak' => $this->post('waktu_memasak'),
-            'porsi' => $this->post('porsi'),
-            'harga' => $this->post('harga'),
-            'favorit' => $this->post('favorit'),
-            'dilihat' => $this->post('dilihat'),
-            'gambar' => $this->post('gambar'),
+            'id_users'          => $this->post('id_users'),
+            'nama_resep'        => $this->post('nama'),
+            'waktu_memasak'     => $this->post('waktu_memasak'),
+            'porsi'             => $this->post('porsi'),
+            'harga'             => $this->post('harga'),
+            'favorit'           => $this->post('favorit'),
+            'dilihat'           => $this->post('dilihat'),
+            'gambar'            => $this->post('gambar'),
         ];
 
         if ($this->resep->createResep($data) > 0) {
@@ -120,7 +120,7 @@ class ResepUsers extends RESTController
     public function index_put()
     {
         $id = $this->put('id');
-        if ($this->put('nama')) $data['nama'] = $this->put('nama');
+        if ($this->put('nama')) $data['nama_resep'] = $this->put('nama');
         if ($this->put('waktu_memasak')) $data['waktu_memasak'] = $this->put('waktu_memasak');
         if ($this->put('porsi')) $data['porsi'] = $this->put('porsi');
         if ($this->put('harga')) $data['harga'] = $this->put('harga');
