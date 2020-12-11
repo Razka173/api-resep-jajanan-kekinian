@@ -10,7 +10,7 @@ class Log extends RESTController
     {
         // Construct the parent class
         parent::__construct();
-        $this->load->model('Log_model', 'log');
+        $this->load->model('Log_model');
     }
 
     public function index_get()
@@ -21,7 +21,8 @@ class Log extends RESTController
         $type       = $this->get('type');
 
         if ($id === null && $user_id === null && $action === null && $type === null) {
-            $log = $this->log->getLog();
+            $log = $this->Log_model->getLog();
+        }
 
         if ($log) {
             // Set the response and exit
@@ -43,7 +44,7 @@ class Log extends RESTController
             'type'       => $this->post('type'),
         ];
 
-        if ($this->log->createLog($data) > 0) {
+        if ($this->Log_model->createLog($data) > 0) {
             // Success
             $this->response([
                 'status' => true,
@@ -71,7 +72,7 @@ class Log extends RESTController
                 'message' => 'Provide an id'
             ], 400);
         } else {
-            if ($this->log->updateLog($data, $id) > 0) {
+            if ($this->Log_model->updateLog($data, $id) > 0) {
                 // Success
                 $this->response([
                     'status' => true,
@@ -97,7 +98,7 @@ class Log extends RESTController
                 'message' => 'Provide an id'
             ], 400);
         } else {
-            if ($this->log->deletelog($id) > 0) {
+            if ($this->Log_model->deletelog($id) > 0) {
                 // Success
                 $this->response([
                     'status' => true,
