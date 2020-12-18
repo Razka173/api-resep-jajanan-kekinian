@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-class Resepbahanusers extends RESTController
+class Usersbahan extends RESTController
 {
 
     function __construct()
@@ -92,17 +92,12 @@ class Resepbahanusers extends RESTController
     public function index_post()
     {
         $data = [
-            'id_users'          => $this->post('id_users'),
-            'nama_resep'        => $this->post('nama'),
-            'waktu_memasak'     => $this->post('waktu_memasak'),
-            'porsi'             => $this->post('porsi'),
-            'harga'             => $this->post('harga'),
-            'favorit'           => $this->post('favorit'),
-            'dilihat'           => $this->post('dilihat'),
-            'gambar'            => $this->post('gambar'),
+            'bahan_id'          => $this->post('bahan_id'),
+            'takaran'           => $this->post('takaran'),
+            'resep_users_id'    => $this->post('resep_users_id'),
         ];
 
-        if ($this->resep->createResep($data) > 0) {
+        if ($this->resep->createBahanResep($data) > 0) {
             // Success
             $this->response([
                 'status' => true,
@@ -120,13 +115,9 @@ class Resepbahanusers extends RESTController
     public function index_put()
     {
         $id = $this->put('id');
-        if ($this->put('nama')) $data['nama_resep'] = $this->put('nama');
-        if ($this->put('waktu_memasak')) $data['waktu_memasak'] = $this->put('waktu_memasak');
-        if ($this->put('porsi')) $data['porsi'] = $this->put('porsi');
-        if ($this->put('harga')) $data['harga'] = $this->put('harga');
-        if ($this->put('favorit')) $data['favorit'] = $this->put('favorit');
-        if ($this->put('dilihat')) $data['dilihat'] = $this->put('dilihat');
-        if ($this->put('gambar')) $data['gambar'] = $this->put('gambar');
+        if ($this->put('bahan_id')) $data['bahan_id'] = $this->put('bahan_id');
+        if ($this->put('takaran')) $data['takaran'] = $this->put('takaran');
+        if ($this->put('resep_users_id')) $data['resep_users_id'] = $this->put('resep_users_id');
 
         if ($id === null) {
             $this->response([
@@ -134,7 +125,7 @@ class Resepbahanusers extends RESTController
                 'message' => 'Provide an id'
             ], 400);
         } else {
-            if ($this->resep->updateResep($data, $id) > 0) {
+            if ($this->resep->updateBahanResep($data, $id) > 0) {
                 // Success
                 $this->response([
                     'status' => true,
@@ -160,7 +151,7 @@ class Resepbahanusers extends RESTController
                 'message' => 'Provide an id'
             ], 400);
         } else {
-            if ($this->resep->deleteResep($id) > 0) {
+            if ($this->resep->deleteBahanResep($id) > 0) {
                 // Success
                 $this->response([
                     'status' => true,
