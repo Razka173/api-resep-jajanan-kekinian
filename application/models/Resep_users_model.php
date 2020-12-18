@@ -22,6 +22,7 @@ class Resep_users_model extends CI_model
             # Step resep
             $this->db->select('nomor_step, intruksi');
             $resep['step'] = $this->db->get_where('step_resep_users', ['resep_users_id' => $id])->result_array();
+            
             return $resep;
         } else if ($nama != null) {
             if ($order) $this->db->order_by($order, "DESC");

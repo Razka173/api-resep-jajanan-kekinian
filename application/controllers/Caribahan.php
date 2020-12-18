@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-class Resepbahan extends RESTController
+class Caribahan extends RESTController
 {
 
     function __construct()
