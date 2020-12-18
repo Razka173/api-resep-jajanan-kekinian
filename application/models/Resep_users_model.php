@@ -172,6 +172,7 @@ class Resep_users_model extends CI_model
     public function createStepResep($data)
     {
         $this->db->insert('step_resep_users', $data);
+        return $this->db->affected_rows();
     }
 
     // Edit Step Resep
@@ -179,6 +180,7 @@ class Resep_users_model extends CI_model
     {
         $this->db->where('id', $data['id']);
         $this->db->update('step_resep_users',$data);
+        return $this->db->affected_rows();
     }
 
     // Delete Step Resep
@@ -186,5 +188,6 @@ class Resep_users_model extends CI_model
     {
         $this->db->where('id', $data['id']);
         $this->db->delete('step_resep_users');
+        return $this->db->affected_rows();
     }
 }
