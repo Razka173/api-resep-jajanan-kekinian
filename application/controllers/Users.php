@@ -13,6 +13,21 @@ class Users extends RESTController
         $this->load->model('Users_model', 'Users');
     }
 
+    public function index_get()<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+use chriskacerguis\RestServer\RestController;
+
+class Users extends RESTController
+{
+
+    function __construct()
+    {
+        // Construct the parent class
+        parent::__construct();
+        $this->load->model('Users_model', 'Users');
+    }
+
     public function index_get()
     {
         $id = $this->get('id');
@@ -112,7 +127,9 @@ class Users extends RESTController
             $n = 10;
             $result = bin2hex(random_bytes($n));
             $filename = $id .'img'.$result.'.' . 'jpeg';
-            $data['foto'] = $filename;
+            if(file_put_contents($path . $filename, base64_decode($foto))) {
+                $data['foto'] = $filename;
+            }
         }
 
         if ($this->Users->updateUser($data, $id, $pass) > 0) {
