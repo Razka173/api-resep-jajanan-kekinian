@@ -63,7 +63,7 @@ class Usersresep extends RESTController
                     }
                 } else {
                     $resep = $this->resep->getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null, $user);
-                } 
+                }
             } else if ($limit != null) {
                 if ($order != null) {
                     $resep = $this->resep->getResep($id = null, $nama = null, $limit, $bahan = null, $order);
@@ -100,15 +100,15 @@ class Usersresep extends RESTController
             'favorit'           => $this->post('favorit'),
             'dilihat'           => $this->post('dilihat'),
         ];
-        
+
         $gambar = $this->post('gambar');
-        $id =$this->post('id_users');
+        $id = $this->post('id_users');
         if ($gambar != null) {
             $path = "assets/img/users/resep/";
             $n = 10;
             $result = bin2hex(random_bytes($n));
-            $filename = $id .'img_resep_'.$result.'.' . 'jpeg';
-            if(file_put_contents($path . $filename, base64_decode($gambar))) {
+            $filename = $id . 'img_resep_' . $result . '.' . 'jpeg';
+            if (file_put_contents($path . $filename, base64_decode($gambar))) {
                 $data['gambar'] = $filename;
             }
         } else {
@@ -117,12 +117,12 @@ class Usersresep extends RESTController
                 'message' => 'Provide an image'
             ], 400);
         }
+        $id = $this->resep->createResep($data);
 
-        if ($this->resep->createResep($data) > 0) {
+        if ($id) {
             // Success
             $this->response([
-                'status' => true,
-                'message' => 'Successfully Created'
+                'id' => $id,
             ], 201);
         } else {
             // id not found

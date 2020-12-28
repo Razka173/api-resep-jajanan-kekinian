@@ -22,7 +22,7 @@ class Resep_users_model extends CI_model
             # Step resep
             $this->db->select('nomor_step, intruksi');
             $resep['step'] = $this->db->get_where('step_resep_users', ['resep_users_id' => $id])->result_array();
-            
+
             return $resep;
         } else if ($nama != null) {
             if ($order) $this->db->order_by($order, "DESC");
@@ -66,7 +66,7 @@ class Resep_users_model extends CI_model
     public function createResep($data)
     {
         $this->db->insert('resep_users', $data);
-        return $this->db->affected_rows();
+        return $this->db->insert_id();
     }
 
     public function updateResep($data, $id)
@@ -136,7 +136,7 @@ class Resep_users_model extends CI_model
     public function updateBahanResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('bahan_resep_users',$data);
+        $this->db->update('bahan_resep_users', $data);
         return $this->db->affected_rows();
     }
 
@@ -179,7 +179,7 @@ class Resep_users_model extends CI_model
     public function updateStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('step_resep_users',$data);
+        $this->db->update('step_resep_users', $data);
         return $this->db->affected_rows();
     }
 
