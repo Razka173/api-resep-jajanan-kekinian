@@ -92,7 +92,7 @@ class Usersbahan extends RESTController
     public function index_post()
     {
         $data = [
-            'bahan_id'          => $this->post('bahan_id'),
+            'nama_bahan'        => $this->post('nama_bahan'),
             'takaran'           => $this->post('takaran'),
             'resep_users_id'    => $this->post('resep_users_id'),
         ];
@@ -115,9 +115,9 @@ class Usersbahan extends RESTController
     public function index_put()
     {
         $id = $this->put('id');
-        if ($this->put('bahan_id')) $data['bahan_id'] = $this->put('bahan_id');
-        if ($this->put('takaran')) $data['takaran'] = $this->put('takaran');
-        if ($this->put('resep_users_id')) $data['resep_users_id'] = $this->put('resep_users_id');
+        if ($this->put('nama_bahan')) $data['nama_bahan']           = $this->put('nama_bahan');
+        if ($this->put('takaran')) $data['takaran']                 = $this->put('takaran');
+        if ($this->put('resep_users_id')) $data['resep_users_id']   = $this->put('resep_users_id');
 
         if ($id === null) {
             $this->response([
