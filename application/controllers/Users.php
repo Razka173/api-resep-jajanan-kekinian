@@ -13,21 +13,6 @@ class Users extends RESTController
         $this->load->model('Users_model', 'Users');
     }
 
-    public function index_get()<?php
-defined('BASEPATH') or exit('No direct script access allowed');
-
-use chriskacerguis\RestServer\RestController;
-
-class Users extends RESTController
-{
-
-    function __construct()
-    {
-        // Construct the parent class
-        parent::__construct();
-        $this->load->model('Users_model', 'Users');
-    }
-
     public function index_get()
     {
         $id = $this->get('id');
@@ -112,25 +97,24 @@ class Users extends RESTController
     {
         $id = $this->put('id');
         $pass = $this->put('pass_old');
-        $foto = $this->put('foto');
-        if ($this->put('nama') != null) $data['nama'] = $this->put('nama');
-        if ($this->put('email')!= null) $data['email'] = $this->put('email');
-        if ($this->put('pass_new') != null) $data['password'] = password_hash($this->put('pass_new'), PASSWORD_DEFAULT);
-        $gambar = null;
-        if ($foto != null) {
-            $users = $this->users->detail($id);
+        if ($this->put('foto') != null) {
+            $foto = $this->put('foto');
+            $users = $this->Users->detail($id);
             $gambar = $users->foto;
-            if(file_exists('/assets/img/users/'.$gambar)){
-                    unlink('/assets/img/users/'.$gambar);
-                }
+            if (file_exists('/assets/img/users/' . $gambar)) {
+                unlink('/assets/img/users/' . $gambar);
+            }
             $path = "assets/img/users/";
             $n = 10;
             $result = bin2hex(random_bytes($n));
-            $filename = $id .'img'.$result.'.' . 'jpeg';
-            if(file_put_contents($path . $filename, base64_decode($foto))) {
+            $filename = $id . 'img' . $result . '.' . 'jpeg';
+            if (file_put_contents($path . $filename, base64_decode($foto))) {
                 $data['foto'] = $filename;
             }
         }
+        if ($this->put('nama') != null) $data['nama'] = $this->put('nama');
+        if ($this->put('email') != null) $data['email'] = $this->put('email');
+        if ($this->put('pass_new') != null) $data['password'] = password_hash($this->put('pass_new'), PASSWORD_DEFAULT);
 
         if ($this->Users->updateUser($data, $id, $pass) > 0) {
             // Success
