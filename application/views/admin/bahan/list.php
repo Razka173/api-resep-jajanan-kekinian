@@ -16,10 +16,10 @@ if($this->session->flashdata('sukses')){
 <table class="table table-bordered" id="dataTable">
 	<thead>
 		<tr>
-			<th>NO</th>
-			<th>GAMBAR</th>
-			<th>NAMA</th>
-			<th>ACTION</th>
+			<th class="col-1">NO</th>
+			<th class="col-5">GAMBAR</th>
+			<th class="col-4">NAMA</th>
+			<th class="col-2">ACTION</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +31,7 @@ if($this->session->flashdata('sukses')){
 			</td>
 			<td><?php echo $bahan->nama ?></td>
 			<td>
-				<a href="<?php echo base_url('admin/bahan/edit/'.$bahan->id) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url('admin/bahan/edit/'.$bahan->id) ?>" class="btn btn-warning btn-xs col-12"><i class="fa fa-edit"></i> Edit</a>
 
 				<?php include('delete.php') ?>
 			</td>

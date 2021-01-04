@@ -56,6 +56,12 @@
           <span>Diskusi</span></a>
       </li>
 
+      <!-- VERIFIKASI -->
+      <li class="nav-item <?php if(strpos(strtolower($title),'verifikasi')){echo 'active';} ?>">
+        <a class="nav-link" href="<?php echo base_url('admin/verifikasi') ?>">
+          <i class="fas fa-fw fa-check"></i>
+          <span>Verifikasi</span></a>
+      </li>
 
       <!-- MENU STEP RESEP -->
       <!-- <li class="nav-item <?php if(strpos(strtolower($title),'step')){echo 'active';} ?>">

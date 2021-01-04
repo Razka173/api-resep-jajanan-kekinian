@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-<?php echo $bahan->id ?>">
+<button type="button" class="btn btn-danger btn-xs col-12 mt-1" data-toggle="modal" data-target="#delete-<?php echo $bahan->id ?>">
 	<i class="fa fa-trash"></i> Hapus
 </button>
 
@@ -20,7 +20,7 @@
 				</div>
       		</div>
       	<div class="modal-footer">
-        	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+        	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
         	<a href="<?php echo base_url('admin/bahan/delete/'.$bahan->id) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Ya, Hapus Data Ini</a>
       	</div>
     	</div>
