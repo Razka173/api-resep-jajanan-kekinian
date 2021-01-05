@@ -34,7 +34,7 @@ if($this->session->flashdata('sukses')){
 	<tbody>
 		<tr>
 			<td>
-				<img src="<?php echo base_url('assets/img/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width=200 alt="">
+				<img src="<?php echo base_url('assets/img/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width=200 alt="Gambar">
 			</td>
 			<td><?php echo $resep->nama_resep ?></td>
 			<td><?php echo $users->nama ?> </td>
@@ -64,7 +64,7 @@ if($this->session->flashdata('sukses')){
 		<tr>
 			<td><?php echo $no ?></td>
 			<td>
-				<img src="<?php echo base_url('assets/img/bahan/thumbs/').$bahan->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="">
+				<img src="<?php echo base_url('assets/img/bahan/thumbs/').$bahan->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="Gambar">
 			</td>
 			<td><?php echo $bahan->nama ?></td>
 			<td><?php echo $bahan->takaran ?></td>

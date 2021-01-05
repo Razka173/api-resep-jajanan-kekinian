@@ -187,15 +187,28 @@ class Resep extends CI_Controller {
 	public function delete($id_resep)
 	{
 		$resep = $this->Resep_model->detail($id_resep);
+		$bahan = $this->Resep_model->listingBahan($id_resep);
+		$step = $this->Resep_model->listingStep($id_resep);
 		// Proses hapus gambar
 		$gambar = $resep->gambar;
-		$nama_file = strtolower(str_replace(base_url(), '', $gambar));
-		if(file_exists('./assets/img/'.$nama_file)){
-    		unlink('./assets/img/'.$nama_file);
+		if($gambar != null){
+			$nama_file = strtolower(str_replace(base_url(), '', $gambar));
+			if(file_exists('./assets/img/'.$nama_file)){
+    			unlink('./assets/img/'.$nama_file);
+    		}
+    		if(file_exists('./assets/img/thumbs/'.$nama_file)){
+    			unlink('./assets/img/thumbs/'.$nama_file);
+    		}
     	}
-    	if(file_exists('./assets/img/thumbs/'.$nama_file)){
-    		unlink('./assets/img/thumbs/'.$nama_file);
-    	}
+		
+		foreach ($bahan as $bahan) {
+			$data = array('id'	=> $bahan->id);
+			$this->Resep_model->deleteBahanResep($data);
+		}
+		foreach ($step as $step){
+			$data = array('id'	=> $step->id);
+			$this->Resep_model->deleteStepResep($data);
+		}
 		// End proses hapus
 		$data = array('id'	=> $id_resep);
 		$this->Resep_model->delete($data);
