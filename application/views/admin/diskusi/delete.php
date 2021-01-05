@@ -20,7 +20,7 @@
 				</div>
       		</div>
       	<div class="modal-footer">
-        	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+        	<button type="button" class="btn btn-success" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
         	<a href="<?php echo base_url('admin/diskusi/delete/'.$diskusi->id) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Ya, Hapus Data Ini</a>
       	</div>
     	</div>

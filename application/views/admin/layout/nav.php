@@ -90,6 +90,14 @@
                 </div>
             </div>
         </li>
+        <!-- VERIFIKASI -->
+        <li class="nav-item <?php if (strpos(strtolower($title), 'verifikasi')) {
+                            echo 'active';
+                          } ?>">
+            <a class="nav-link" href="<?php echo base_url('admin/verifikasi') ?>">
+                <i class="fas fa-fw fa-check"></i>
+                <span>Verifikasi</span></a>
+        </li>
 
         <!-- Report -->
         <li class="nav-item <?php if (strpos(strtolower($title), 'report')) {

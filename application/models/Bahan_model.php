@@ -65,6 +65,17 @@ class Bahan_model extends CI_model
         return $query->row();
     }
 
+    // Search Bahan
+    public function search($word)
+    {
+        $this->db->select('*');
+        $this->db->from('bahan');
+        $this->db->like('nama', $word);
+        $this->db->order_by('nama', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // Tambah
     public function tambah($data)
     {
