@@ -3,50 +3,46 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 use chriskacerguis\RestServer\RestController;
 
-class UserLogs extends RESTController
+class Userlogs extends RESTController
 {
 
     function __construct()
     {
         // Construct the parent class
         parent::__construct();
-        $this->load->model('UserLogs_model', 'UserLogs');
+        $this->load->model('Log_model', 'logs');
     }
 
     public function index_get()
     {
-        $id = $this->get('id');
-        $user_id = $this->get('user_id');
-        $action = $this->get('action');
-        $timestamp = $this->get('timestamp');
+        // $id = $this->get('id');
+        // $user_id = $this->get('user_id');
+        // $action = $this->get('action');
+        // $timestamp = $this->get('timestamp');
 
-        if ($id == null && $user_id == null && $action == null && $timestamp == null) {
-            $UserLogs = $this->UserLogs->getUserLogs();
-        }
+        // if ($id == null && $user_id == null && $action == null && $timestamp == null) {
+        //     $logs = $this->logs->getlogs();
+        // } else {
+        //     if ($id == null) {
+        //         $logs = $this->logs->getlogs($id = null, $user_id, $action, $timestamp);
+        //     } else {
+        //         $log = $this->logs->getlogs($id);
+        //     }
+        // }
 
-        // elseif (($id !== null && $user_id !== null) || ($id !== null && $action !== null) || ($id !== null && $action !== null)) {
-        //     $this->response([
-        //         'status' => false,
-        //         'message' => 'Bad Request data'
-        //     ], 400);
-        // } 
+        $group = $this->get("group");
+        $limit = $this->get('limit');
 
-        else {
-            if ($id == null) {
-                $UserLogs = $this->UserLogs->getUserLogs($id = null, $user_id, $action, $timestamp);
-            } else {
-                $UserLogs = $this->UserLogs->getUserLogs($id);
-            }
-        }
+        $logs = $this->logs->count($group, $limit);
 
-        if ($UserLogs) {
+        if ($logs) {
             // Set the response and exit
-            $this->response($UserLogs, 200);
+            $this->response($logs, 200);
         } else {
             // Set the response and exit
             $this->response([
                 'status' => false,
-                'message' => 'No UserLogs were found'
+                'message' => 'No logs were found'
             ], 404);
         }
     }
@@ -58,7 +54,7 @@ class UserLogs extends RESTController
             'action' => $this->post('action'),
         ];
 
-        if ($this->UserLogs->createUserLog($data) > 0) {
+        if ($this->logs->createUserlogs($data) > 0) {
             // Success
             $this->response([
                 'status' => true,
@@ -81,7 +77,7 @@ class UserLogs extends RESTController
             'action' => $this->put('action'),
         ];
 
-        if ($this->UserLogs->updateUserLog($data, $id) > 0) {
+        if ($this->logs->updateUserlogs($data, $id) > 0) {
             // Success
             $this->response([
                 'status' => true,
@@ -106,7 +102,7 @@ class UserLogs extends RESTController
                 'message' => 'Provide an id'
             ], 400);
         } else {
-            if ($this->UserLogs->deleteUserLog($id) > 0) {
+            if ($this->logs->deleteUserlogs($id) > 0) {
                 // Success
                 $this->response([
                     'status' => true,

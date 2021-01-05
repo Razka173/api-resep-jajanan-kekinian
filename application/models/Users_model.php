@@ -65,7 +65,7 @@ class Users_model extends CI_model
         }
         return $this->db->affected_rows();
     }
-    
+
     // Detail
     public function detail($id_user)
     {
@@ -75,5 +75,15 @@ class Users_model extends CI_model
         $this->db->order_by('id', 'asc');
         $query = $this->db->get();
         return $query->row();
+    }
+
+    // Listing all user
+    public function listing()
+    {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get();
+        return $query->result();
     }
 }

@@ -73,4 +73,16 @@ class Log_model extends CI_model
         $query = $this->db->get();
         return $query->row();
     }
+
+    // SELECT type, COUNT(type) FROM `user_logs` GROUP BY type
+    public function count($group, $limit = null)
+    {
+        $this->db->select("$group, count($group) as count");
+        $this->db->from('user_logs');
+        $this->db->group_by($group);
+        $this->db->order_by('count', 'desc');
+        if ($limit != null) $this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
