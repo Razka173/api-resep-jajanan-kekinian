@@ -37,7 +37,7 @@ if($this->session->flashdata('sukses')){
 		echo validation_errors('<div class="alert alert-warning">','</div>');
 
 		// Form open
-		echo form_open_multipart(base_url('admin/verifikasi/bahan/'.$resep_id.'/'.$id),' class="form-horizontal"');
+		echo form_open_multipart(base_url('admin/verifikasi/approvebahan/'.$bahan->id.'/'.$resep->id_approve),' class="form-horizontal"');
 		?>
 		<tr>
 			<td><?php echo $no ?></td>
@@ -53,15 +53,16 @@ if($this->session->flashdata('sukses')){
 						</select>
 					</div>
 					<div class="col-6">
-						<input type="text" name="takaran" id="takaran" class="form-control" placeholder="Silahkan lihat rekomendasi input dibawah" value="<?php echo set_value('takaran') ?>" required>
+						<input type="text" name="takaran" id="takaran" class="form-control" placeholder="Silahkan lihat rekomendasi input dibawah" value="<?php echo $bahan->takaran ?>" required>
 					</div>
 				</div>
 			</td>
 
 			<td>
-				
+				<button class="btn btn-warning btn-xs col-12" name="submit" type="submit"><i class="fa fa-check"></i> Verifikasi</button>
 			</td>
 		</tr>
+		<?php echo form_close(); ?>
 		<?php $no++; } ?>
 	</tbody>
 </table>

@@ -26,7 +26,7 @@ if($this->session->flashdata('sukses')){
 			<td>
 				<a href="<?php echo base_url('admin/verifikasi/detail/'.$resep->id) ?>" class="btn btn-info btn-xs col-12"><i class="fa fa-eye"></i> Detail</a>
 				<?php include('submit.php') ?>
-				<a href="<?php echo base_url('admin/verifikasi/edit/'.$resep->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url('admin/verifikasi/bahan/'.$resep->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"></i> Verifikasi Bahan</a>
 			</td>
 		</tr>
 		<?php $no++; } ?>
