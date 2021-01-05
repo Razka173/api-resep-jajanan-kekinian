@@ -41,4 +41,25 @@ class UserLogs_model extends CI_model
         $this->db->delete('user_logs', ['id' => $id]);
         return $this->db->affected_rows();
     }
+
+    // Detail
+    public function detail($id_user)
+    {
+        $this->db->select('*');
+        $this->db->from('user_logs');
+        $this->db->where('id', $id_user);
+        $this->db->order_by('id', 'asc');
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    // Listing all user
+    public function listing()
+    {
+        $this->db->select('*');
+        $this->db->from('user_logs');
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

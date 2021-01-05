@@ -21,7 +21,7 @@ class Log extends RESTController
         $type       = $this->get('type');
 
         if ($id === null && $user_id === null && $action === null && $type === null) {
-            $log = $this->Log_model->getLog();
+            $log = $this->Log_model->listing();
         }
 
         if ($log) {
