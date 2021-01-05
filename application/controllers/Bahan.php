@@ -54,11 +54,6 @@ class Bahan extends RESTController
     {
         $data = [
             'nama' => $this->post('nama'),
-            'waktu_memasak' => $this->post('waktu_memasak'),
-            'porsi' => $this->post('porsi'),
-            'harga' => $this->post('harga'),
-            'favorit' => $this->post('favorit'),
-            'dilihat' => $this->post('dilihat'),
             'gambar' => $this->post('gambar'),
         ];
 
@@ -82,11 +77,6 @@ class Bahan extends RESTController
         $id = $this->put('id');
         $data = [
             'nama' => $this->put('nama'),
-            'waktu_memasak' => $this->put('waktu_memasak'),
-            'porsi' => $this->put('porsi'),
-            'harga' => $this->put('harga'),
-            'favorit' => $this->put('favorit'),
-            'dilihat' => $this->put('dilihat'),
             'gambar' => $this->put('gambar'),
         ];
 

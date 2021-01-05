@@ -69,7 +69,7 @@ if($this->session->flashdata('sukses')){
 			<td><?php echo $bahan->nama ?></td>
 			<td><?php echo $bahan->takaran ?></td>
 			<td>
-				<a href="<?php echo base_url('admin/resep/editbahanresep/'.$bahan->id) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url() ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
 			</td>
 		</tr>
@@ -95,7 +95,7 @@ if($this->session->flashdata('sukses')){
 			<td><?php echo $stepresep->nomor_step ?></td>
 			<td><?php echo $stepresep->intruksi ?></td>
 			<td>
-				<a href="<?php echo base_url('admin/resep/editstepresep/'.$stepresep->id) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url() ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
 			</td>
 		</tr>

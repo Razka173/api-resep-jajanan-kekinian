@@ -59,7 +59,13 @@ if($this->session->flashdata('sukses')){
 			</td>
 
 			<td>
-				<button class="btn btn-warning btn-xs col-12" name="submit" type="submit"><i class="fa fa-check"></i> Verifikasi</button>
+				<?php if($bahan->is_approve == null && $list != null){?>
+				<button class="btn btn-warning btn-xs col-12" name="submit" type="submit"><i class="fa fa-check"></i> Verifikasi</button><?php }else if($bahan->is_approve != null){ ?>
+				<div class="btn btn-outline-success btn-xs col-12"><i class="fa fa-check"> Terverifikasi</i></div>
+				<?php }else if($list == null){?>
+				<a href="<?php echo base_url('admin/verifikasi/tambahbahan/'.$bahan->nama_bahan.'/'.$resep_id) ?>" class="btn btn-success btn-xs col-12" name="submit" type="submit"><i class="fa fa-plus"> Tambah bahan</i></a>
+				<?php }?>
+				
 			</td>
 		</tr>
 		<?php echo form_close(); ?>

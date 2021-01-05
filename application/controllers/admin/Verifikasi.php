@@ -74,17 +74,6 @@ class Verifikasi extends CI_Controller {
 			$this->session->set_flashdata('sukses', 'Data resep users SUDAH PERNAH diverifikasi, silahkan verifikasi bahan resep');
 			redirect(base_url('admin/verifikasi'),'refresh');
 		}
-		// foreach ($bahan as $bahan){
-		// 	$nama_bahan = $this->$bahan->nama_bahan;
-		// 	if ($this->Bahan_model->search($nama_bahan)){
-		// 		$bahan_hasil = $this->Bahan_model->search($search_bahan);
-		// 		$databahan = array( 'bahan_id'	=> $bahan_hasil->id,
-		// 							'takaran'	=> $bahan->takaran,
-		// 							'resep_id'	=> $id,
-		// 							);
-		// 		$this->Resep_model->tambahBahanResep($databahan);
-		// 	}	
-		// }
 	}
 
 	public function bahan($resep_id)
@@ -105,9 +94,7 @@ class Verifikasi extends CI_Controller {
 	// Approve Bahan Resep
 	public function approvebahan($id_bahan_resep, $id_approve)
 	{
-		$bahanresep = $this->Resep_users_model->detailBahanResep($id_bahan_resep);
-		$bahan_id = $bahanresep->bahan_id;
-		$bahan = $this->Bahan_model->detail($bahan_id);
+		$bahan_resep = $this->Resep_users_model->detailBahanResep($id_bahan_resep);
 
 		// Validasi input
 		$valid = $this->form_validation;
@@ -117,12 +104,24 @@ class Verifikasi extends CI_Controller {
 		
 		// Masuk database
 		$i = $this->input;
+		$data = array(	'bahan_id'			=> $i->post('id'),
+						'resep_id'			=> $id_approve,
+						'takaran'			=> $i->post('takaran'));
+		$this->Resep_model->tambahBahanResep($data);
 		$data = array(	'id'			=> $id_bahan_resep,
-						'takaran'		=> $i->post('takaran'));
-		$this->Resep_model->editBahanResep($data);
-		$this->session->set_flashdata('sukses', 'Data telah diedit');
-		redirect(base_url('admin/resep/detail/'.$bahanresep->resep_id),'refresh');
+						'is_approve'	=> 1,
+					);
+		$this->Resep_users_model->updateBahanResep($data);
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		redirect(base_url('admin/verifikasi/bahan/'.$bahan_resep->resep_users_id),'refresh');
 		// End masuk database
+	}
+
+	public function tambahbahan($namabahan, $resep_id) {
+		$data = array(	'nama'	=> $namabahan);
+		$this->Bahan_model->createBahan($data);
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		redirect(base_url('admin/verifikasi/bahan/'.$resep_id),'refresh');
 	}
 
 }
