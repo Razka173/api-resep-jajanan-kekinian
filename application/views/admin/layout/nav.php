@@ -61,15 +61,6 @@
             </div>
         </li>
 
-        <!-- DISKUSI -->
-        <li class="nav-item <?php if (strpos(strtolower($title), 'diskusi')) {
-                            echo 'active';
-                          } ?>">
-            <a class="nav-link" href="<?php echo base_url('admin/diskusi') ?>">
-                <i class="fas fa-fw fa-comment"></i>
-                <span>Diskusi</span></a>
-        </li>
-
         <!-- MENU USER -->
         <li class="nav-item <?php if (strpos(strtolower($title), 'pengguna')) {
                             echo 'active';
@@ -90,6 +81,16 @@
                 </div>
             </div>
         </li>
+
+        <!-- DISKUSI -->
+        <li class="nav-item <?php if (strpos(strtolower($title), 'diskusi')) {
+                            echo 'active';
+                          } ?>">
+            <a class="nav-link" href="<?php echo base_url('admin/diskusi') ?>">
+                <i class="fas fa-fw fa-comment"></i>
+                <span>Diskusi</span></a>
+        </li>
+
         <!-- VERIFIKASI -->
         <li class="nav-item <?php if (strpos(strtolower($title), 'verifikasi')) {
                             echo 'active';

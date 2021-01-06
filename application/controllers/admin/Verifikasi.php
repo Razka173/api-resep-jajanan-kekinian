@@ -54,44 +54,74 @@ class Verifikasi extends CI_Controller {
 							'porsi'			=> $resep->porsi,
 							'harga'			=> $resep->harga,
 							);
-		$this->Resep_model->tambah($dataresep);
-		$id = $this->db->insert_id();
-		$new_resep = $this->Resep_model->detail($id);
-		foreach ($stepresep as $stepresep){
-			$datastep = array(	'resep_id'		=> $new_resep->id,
+		if($resep->is_approve == null){
+			$this->Resep_model->tambah($dataresep);
+			$id = $this->db->insert_id();
+			$data = array(	'id_approve' => $id,
+							'is_approve' => 1
+						);
+			$this->Resep_users_model->updateResep($data, $id_resep);
+			foreach ($stepresep as $stepresep){
+			$datastep = array(	'resep_id'		=> $id,
 								'nomor_step'	=> $stepresep->nomor_step,
 								'intruksi'		=> $stepresep->intruksi,
 							);
 			$this->Resep_model->tambahStepResep($datastep);
+			$this->session->set_flashdata('sukses', 'Data resep users BERHASIL diverifikasi, silahkan verifikasi bahan resep');
+			redirect(base_url('admin/verifikasi/bahan/'.$id_resep),'refresh');
+			}
+		}else{
+			$this->session->set_flashdata('sukses', 'Data resep users SUDAH PERNAH diverifikasi, silahkan verifikasi bahan resep');
+			redirect(base_url('admin/verifikasi'),'refresh');
 		}
-		// foreach ($bahan as $bahan){
-		// 	$nama_bahan = $this->$bahan->nama_bahan;
-		// 	if ($this->Bahan_model->search($nama_bahan)){
-		// 		$bahan_hasil = $this->Bahan_model->search($search_bahan);
-		// 		$databahan = array( 'bahan_id'	=> $bahan_hasil->id,
-		// 							'takaran'	=> $bahan->takaran,
-		// 							'resep_id'	=> $id,
-		// 							);
-		// 		$this->Resep_model->tambahBahanResep($databahan);
-		// 	}	
-		// }
-		 
-		$this->session->set_flashdata('sukses', 'Data resep users telah disetujui');
-		redirect(base_url('admin/verifikasi/bahan/'.$id_resep.'/'.$id),'refresh');
 	}
 
-	public function bahan($resep_id, $id)
+	public function bahan($resep_id)
 	{
+		$resep = $this->Resep_users_model->detail($resep_id);
 		$bahan = $this->Resep_users_model->listingBahan($resep_id);
 		$listbahan = $this->Bahan_model->listingSort();
 		$data = array(	'title' 	=> 'Data Verifikasi Bahan',
 						'listbahan'	=> $listbahan,
 						'bahan'		=> $bahan,
 						'resep_id'	=> $resep_id,
-						'id'		=> $id,
+						'resep'		=> $resep,
 						'isi'		=> 'admin/verifikasi/bahan'
 					);
 		$this->load->view('admin/layout/wrapper', $data, FALSE);
+	}
+
+	// Approve Bahan Resep
+	public function approvebahan($id_bahan_resep, $id_approve)
+	{
+		$bahan_resep = $this->Resep_users_model->detailBahanResep($id_bahan_resep);
+
+		// Validasi input
+		$valid = $this->form_validation;
+
+		$valid->set_rules('takaran','Takaran','required',
+			array(	'required'		=> '%s harus diisi'));
+		
+		// Masuk database
+		$i = $this->input;
+		$data = array(	'bahan_id'			=> $i->post('id'),
+						'resep_id'			=> $id_approve,
+						'takaran'			=> $i->post('takaran'));
+		$this->Resep_model->tambahBahanResep($data);
+		$data = array(	'id'			=> $id_bahan_resep,
+						'is_approve'	=> 1,
+					);
+		$this->Resep_users_model->updateBahanResep($data);
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		redirect(base_url('admin/verifikasi/bahan/'.$bahan_resep->resep_users_id),'refresh');
+		// End masuk database
+	}
+
+	public function tambahbahan($namabahan, $resep_id) {
+		$data = array(	'nama'	=> $namabahan);
+		$this->Bahan_model->createBahan($data);
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		redirect(base_url('admin/verifikasi/bahan/'.$resep_id),'refresh');
 	}
 
 }

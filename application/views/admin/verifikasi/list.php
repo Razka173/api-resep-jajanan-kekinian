@@ -10,9 +10,10 @@ if($this->session->flashdata('sukses')){
 	<thead>
 		<tr>
 			<th class="col-1">NO</th>
-			<th class="col-2">GAMBAR</th>
+			<th class="col-1">GAMBAR</th>
 			<th class="col-2">NAMA RESEP</th>
-			<th class="col-1">ACTION</th>
+			<th class="col-2">STATUS</th>
+			<th class="col-2">ACTION</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,10 +24,11 @@ if($this->session->flashdata('sukses')){
 				<img src="<?php echo base_url('assets/img/bahan/thumbs/').$resep->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="Gambar">
 			</td>
 			<td><?php echo $resep->nama_resep ?></td>
+			<td><?php if($resep->is_approve==1){echo 'Sudah Verifikasi';}else{echo 'Belum Verifikasi';} ?></td>
 			<td>
 				<a href="<?php echo base_url('admin/verifikasi/detail/'.$resep->id) ?>" class="btn btn-info btn-xs col-12"><i class="fa fa-eye"></i> Detail</a>
 				<?php include('submit.php') ?>
-				<a href="<?php echo base_url('admin/verifikasi/edit/'.$resep->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url('admin/verifikasi/bahan/'.$resep->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"></i> Verifikasi Bahan</a>
 			</td>
 		</tr>
 		<?php $no++; } ?>
