@@ -95,7 +95,7 @@ class Verifikasi extends CI_Controller {
 		}
 		$bahan = $this->Resep_users_model->listingBahan($resep_id);
 		$listbahan = $this->Bahan_model->listingSort();
-		$data = array(	'title' 	=> 'Data Verifikasi Bahan',
+		$data = array(	'title' 	=> 'Data Verifikasi',
 						'listbahan'	=> $listbahan,
 						'bahan'		=> $bahan,
 						'resep_id'	=> $resep_id,

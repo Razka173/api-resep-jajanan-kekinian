@@ -12,9 +12,8 @@ echo validation_errors('<div class="alert alert-warning">', '</div>');
 // Form open
 echo form_open_multipart(base_url('admin/verifikasi/editstepresep/'.$step_resep->id), ' class="form-horizontal"');
 ?>
-
 <p>
-    <a href="<?php echo base_url('admin/verifikasi/detail/'.$step_resep->resep_users_id) ?>" class="btn btn-primary btn-lg">
+    <a href="<?php echo $this->agent->referrer(); ?>" class="btn btn-primary btn-lg">
         <i class="fa fa-angle-left"></i> Kembali
     </a>
 </p>

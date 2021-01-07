@@ -1,5 +1,5 @@
 <p>
-	<a href="<?php echo base_url('admin/verifikasi') ?>" class="btn btn-primary btn-lg col-2">
+	<a href="<?php echo $this->agent->referrer(); ?>" class="btn btn-primary btn-lg">
 		<i class="fa fa-angle-left"></i> Kembali
 	</a>
 </p>
@@ -16,13 +16,13 @@ if($this->session->flashdata('sukses')){
 <table class="table table-hover table-info" id="dataTable">
 <tbody>
 		<tr>
-			<th class="col-2">Rekomendasi Takaran</th>
-			<th class="col-2">100 ml</th>
-			<th class="col-2">100 Gram</th>
-			<th class="col-2">1 Sendok Makan</th>
-			<th class="col-2">1 Sendok Teh</th>
-			<th class="col-2">1 Butir</th>
-			<th class="col-2">Secukupnya</th>
+			<th width=10%>Rekomendasi Takaran</th>
+			<th width=5%>100 ml</th>
+			<th width=5%>100 Gram</th>
+			<th width=5%>1 Sendok Makan</th>
+			<th width=5%>1 Sendok Teh</th>
+			<th width=5%>1 Butir</th>
+			<th width=5%>Secukupnya</th>
 		</tr>
 </tbody>
 </table>
@@ -30,11 +30,11 @@ if($this->session->flashdata('sukses')){
 <table class="table table-bordered" id="dataTable">
 	<thead>
 		<tr>
-			<th class="col-1">NO</th>
-			<th class="col-2">BAHAN USER</th>
-			<th class="col-2">TAKARAN USER</th>
-			<th class="col-5">VERIFIKASI BAHAN & TAKARAN</th>
-			<th class="col-2">ACTION</th>
+			<th width=5%>NO</th>
+			<th>BAHAN USER</th>
+			<th>TAKARAN USER</th>
+			<th width=40%>VERIFIKASI BAHAN & TAKARAN</th>
+			<th width=20%>ACTION</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -66,11 +66,11 @@ if($this->session->flashdata('sukses')){
 
 			<td>
 				<?php if($bahan->is_approve == null && $list != null){?>
-				<button class="btn btn-warning btn-xs col-12" name="submit" type="submit"><i class="fa fa-check"></i> Verifikasi</button><?php }else if($bahan->is_approve != null){ ?>
-				<div class="btn btn-outline-success btn-xs col-12"><i class="fa fa-check"> Terverifikasi</i></div>
+				<button class="btn btn-success btn-xs col-12" name="submit" type="submit"><i class="fa fa-check"></i> Verifikasi Bahan</button><?php }else if($bahan->is_approve != null){ ?>
+				<div class="btn btn-outline-success btn-xs col-12"><i class="fa fa-check"></i> Terverifikasi</div>
 				<?php }else if($list == null){?>
-				<a href="<?php echo base_url('admin/verifikasi/tambahbahan/'.$bahan->nama_bahan.'/'.$resep_id) ?>" class="btn btn-success btn-xs col-12" name="submit" type="submit"><i class="fa fa-plus"> Tambah Bahan</i></a>
-				<a href="<?php echo base_url('admin/verifikasi/editbahanresep/'.$bahan->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"> Edit bahan</i></a>
+				<a href="<?php echo base_url('admin/verifikasi/tambahbahan/'.$bahan->nama_bahan.'/'.$resep_id) ?>" class="btn btn-success btn-xs col-12" name="submit" type="submit"><i class="fa fa-plus"></i> Tambah Bahan ke Kulkas</a>
+				<a href="<?php echo base_url('admin/verifikasi/editbahanresep/'.$bahan->id) ?>" class="btn btn-warning btn-xs col-12 mt-1"><i class="fa fa-edit"></i> Edit bahan</a>
 				<?php }?>
 			</td>
 		</tr>

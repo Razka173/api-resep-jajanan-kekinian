@@ -26,6 +26,11 @@ class Simple_login
 			$this->CI->session->set_userdata('nama',$nama);
 			$this->CI->session->set_userdata('username',$username);
 			$this->CI->session->set_userdata('akses_level',$akses_level);
+			// Update last login
+			$data = array(	'id_user'		=> $id_user,
+							'last_login'	=> date('Y-m-d H:i:s'),
+					);
+			$this->CI->admin_model->update_last_login($data);
 			// redirect ke halaman admin yang diproteksi
 			redirect(base_url('admin/dasbor'),'refresh');
 		}else{
@@ -78,6 +83,36 @@ class Simple_login
 		// Setelah session dibuang, makaa redirect ke login
 		$this->CI->session->set_flashdata('sukses', 'Data anda berhasil dihapus. Anda dipaksa logout dari sistem');
 		redirect(base_url('login'),'refresh');
+	}
+
+	function time_elapsed_string($datetime, $full = false)
+	{
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
 	}
 
 }

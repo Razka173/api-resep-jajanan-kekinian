@@ -45,7 +45,7 @@ class Diskusi_model extends CI_model
         $this->db->from('diskusi');
         $this->db->join('resep', 'resep_id = resep.id', 'left');
         $this->db->join('users', 'user_id = users.id', 'left');
-        $this->db->order_by('id', 'asc');
+        $this->db->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }

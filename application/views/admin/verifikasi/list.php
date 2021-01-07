@@ -13,8 +13,8 @@ if($this->session->flashdata('sukses')){
 			<th width=5%>NO</th>
 			<th>NAMA RESEP</th>
 			<th>PENULIS</th>
-			<th width=20%>STATUS</th>
-			<th width=20%>ACTION</th>
+			<th width=25%>STATUS</th>
+			<th width=25%>ACTION</th>
 		</tr>
 	</thead>
 	<tbody>

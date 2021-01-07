@@ -14,7 +14,7 @@ echo form_open_multipart(base_url('admin/verifikasi/editbahanresep/'.$bahan_rese
 ?>
 
 <p>
-	<a href="<?php echo base_url('admin/verifikasi/detail/'.$bahan_resep->resep_users_id) ?>" class="btn btn-primary btn-lg">
+	<a href="<?php echo $this->agent->referrer(); ?>" class="btn btn-primary btn-lg">
 		<i class="fa fa-angle-left"></i> Kembali
 	</a>
 </p>

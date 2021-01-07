@@ -42,24 +42,30 @@ class Admin_model extends CI_Model {
 		return $query->row();
 	}
 
+	public function update_last_login($data)
+	{
+		$this->db->where('id_user', $data['id_user']);
+		$this->db->update('admin', $data);
+	}
+
 	// Tambah
 	public function tambah($data)
 	{
-		$this->db->insert('users', $data);
+		$this->db->insert('admin', $data);
 	}
 
 	// Edit
 	public function edit($data)
 	{
 		$this->db->where('id_user', $data['id_user']);
-		$this->db->update('users',$data);
+		$this->db->update('admin',$data);
 	}
 
 	// Delete
 	public function delete($data)
 	{
 		$this->db->where('id_user', $data['id_user']);
-		$this->db->delete('users',$data);
+		$this->db->delete('admin',$data);
 	}
 }
 
