@@ -24,9 +24,9 @@ if($this->session->flashdata('sukses')){
 			<td><?php echo $resep->nama_resep ?></td>
 			<td><?php echo $resep->nama_penulis ?></td>
 			<td><?php 
-				if($resep->is_approve==1){echo '<div class="btn btn-success btn-xs col-12"><i class="fa fa-check"></i> Verifikasi Resep</div>';}else{echo '<div class="btn btn-danger btn-xs col-12"><i class="fa fa-times"></i> Belum Verifikasi</div>';} 
+				if($resep->is_approve==1){echo '<div class="btn btn-success btn-xs col-12"><i class="fa fa-check"></i> Resep Terverifikasi</div>';}else{echo '<div class="btn btn-danger btn-xs col-12"><i class="fa fa-times"></i> Verifikasi Resep</div>';} 
 				
-				if($resep->is_migrated==1){echo '<div class="btn btn-success btn-xs col-12 mt-1"><i class="fa fa-check"></i> Verifikasi Bahan</div>';}else{echo '<div class="btn btn-danger btn-xs col-12 mt-1"><i class="fa fa-times"></i> Verifikasi Bahan</div>';}
+				if($resep->is_migrated==1){echo '<div class="btn btn-success btn-xs col-12 mt-1"><i class="fa fa-check"></i> Bahan Terverifikasi</div>';}else{echo '<div class="btn btn-danger btn-xs col-12 mt-1"><i class="fa fa-times"></i> Verifikasi Bahan</div>';}
 				?>
 			</td>
 			<td>

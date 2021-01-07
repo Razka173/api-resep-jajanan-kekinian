@@ -67,11 +67,11 @@ class Verifikasi extends CI_Controller {
 								'intruksi'		=> $stepresep->intruksi,
 							);
 			$this->Resep_model->tambahStepResep($datastep);
-			$this->session->set_flashdata('sukses', 'Data resep users BERHASIL diverifikasi, silahkan verifikasi bahan resep');
+			$this->session->set_flashdata('sukses', 'Data Resep BERHASIL Diverifikasi, Silahkan Verifikasi Bahan');
 			redirect(base_url('admin/verifikasi/bahan/'.$id_resep),'refresh');
 			}
 		}else{
-			$this->session->set_flashdata('sukses', 'Data resep users SUDAH PERNAH diverifikasi, silahkan verifikasi bahan resep');
+			$this->session->set_flashdata('sukses', 'Data Resep SUDAH Terverifikasi');
 			redirect(base_url('admin/verifikasi'),'refresh');
 		}
 	}
@@ -82,11 +82,15 @@ class Verifikasi extends CI_Controller {
 		$resep = $this->Resep_users_model->detail($resep_id);
 		$is_migrated = $this->Resep_users_model->is_migrated($resep_id);
 		if($resep->id_approve==null){
-			$this->session->set_flashdata('sukses', 'Resep BELUM diverifikasi, silahkan klik verifikasi Resep terlebih dahulu');
+			$this->session->set_flashdata('sukses', 'Resep BELUM Diverifikasi, Silahkan Klik Verifikasi Resep Terlebih Dahulu');
 			redirect(base_url('admin/verifikasi'),'refresh');
 		}
 		if($is_migrated){
-			$this->session->set_flashdata('sukses', 'Bahan Resep SUDAH TERVERIFIKASI');
+			$data = array( 	'id'	=> $resep_id,
+							'is_migrated'	=> 1,
+					);
+			$this->Resep_users_model->updateResep($data, $resep_id);
+			$this->session->set_flashdata('sukses', 'Bahan Resep SUDAH Terverifikasi');
 			redirect(base_url('admin/verifikasi'),'refresh');
 		}
 		$bahan = $this->Resep_users_model->listingBahan($resep_id);
@@ -115,14 +119,17 @@ class Verifikasi extends CI_Controller {
 		// Masuk database
 		$i = $this->input;
 		$data = array(	'bahan_id'			=> $i->post('id'),
+						'takaran'			=> $i->post('takaran'),
 						'resep_id'			=> $id_approve,
-						'takaran'			=> $i->post('takaran'));
+					);
 		$this->Resep_model->tambahBahanResep($data);
 		$data = array(	'id'			=> $id_bahan_resep,
+						'bahan_id'		=> $i->post('id'),
+						'takaran'		=> $i->post('takaran'),
 						'is_approve'	=> 1,
 					);
 		$this->Resep_users_model->updateBahanResep($data);
-		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL Diverifikasi');
 		redirect(base_url('admin/verifikasi/bahan/'.$bahan_resep->resep_users_id),'refresh');
 		// End masuk database
 	}
@@ -131,7 +138,7 @@ class Verifikasi extends CI_Controller {
 	{
 		$data = array(	'nama'	=> $namabahan);
 		$this->Bahan_model->createBahan($data);
-		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL diverifikasi');
+		$this->session->set_flashdata('sukses', 'Data Bahan BERHASIL Diverifikasi');
 		redirect(base_url('admin/verifikasi/bahan/'.$resep_id),'refresh');
 	}
 
@@ -163,7 +170,7 @@ class Verifikasi extends CI_Controller {
 		}
 		// End proses hapus
 		$this->Resep_users_model->deleteResep($id_resep);
-		$this->session->set_flashdata('sukses', 'Data resep users telah dihapus');
+		$this->session->set_flashdata('sukses', 'Data Resep Telah DIHAPUS');
 		redirect(base_url('admin/verifikasi'),'refresh');
 	}
 
