@@ -5,7 +5,8 @@ class Resep_model extends CI_model
 
     public function getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null, $user = null)
     {
-        if ($limit === null) {
+        if ($id === null && $nama === null && $bahan === null && $order === null && $user === null) {
+        } else {
             $limit = 10;
         }
         if ($id != null) {
