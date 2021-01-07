@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success btn-xs col-12 mt-1" data-toggle="modal" data-target="#submit-<?php echo $resep->id ?>">
-	<i class="fa fa-check"></i> Verifikasi
+	<i class="fa fa-check"></i> Verifikasi Resep
 </button>
 
 <!-- Modal -->

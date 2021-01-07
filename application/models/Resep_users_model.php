@@ -84,9 +84,10 @@ class Resep_users_model extends CI_model
     // Listing all Resep
     public function listing()
     {
-        $this->db->select('*');
+        $this->db->select('resep_users.*, users.nama as nama_penulis');
         $this->db->from('resep_users');
-        $this->db->order_by('id', 'asc');
+        $this->db->join('users', 'id_users = users.id', 'left');
+        $this->db->order_by('resep_users.id', 'asc');
         $query = $this->db->get();
         return $query->result();
     }
@@ -100,6 +101,25 @@ class Resep_users_model extends CI_model
         $this->db->order_by('id', 'asc');
         $query = $this->db->get();
         return $query->row();
+    }
+
+    // Jika semua bahan_resep sudah approve, maka resep sudah migrasi ke tabel resep utama
+    public function is_migrated($id_resep)
+    {
+        $this->db->select('*');
+        $this->db->from('bahan_resep_users');
+        $this->db->where('resep_users_id', $id_resep);
+        $this->db->where('is_approve', 1);
+        $sum_bahan_approve = count($this->db->get()->result());
+        $this->db->select('*');
+        $this->db->from('bahan_resep_users');
+        $this->db->where('resep_users_id', $id_resep);
+        $sum_bahan = count($this->db->get()->result());
+        if($sum_bahan_approve==$sum_bahan){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // Listing Bahan dalam suatu Resep

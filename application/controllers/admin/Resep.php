@@ -211,9 +211,9 @@ class Resep extends CI_Controller {
 		}
 		// End proses hapus
 		$data = array('id'	=> $id_resep);
-		$this->Resep_model->delete($data);
-		$this->session->set_flashdata('sukses', 'Data telah dihapus');
-		redirect(base_url('admin/resep'),'refresh');
+		$this->Resep_model->deleteResep($data);
+		$this->session->set_flashdata('sukses', 'Data resep users telah dihapus');
+		redirect(base_url('admin/verifikasi'),'refresh');
 	}
 
 	// Detail Resep
