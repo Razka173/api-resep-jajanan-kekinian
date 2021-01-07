@@ -10,18 +10,17 @@ class Resep_users_model extends CI_model
         }
         if ($id != null) {
             # Info resep
-            $resep['info'] = $this->db->get_where('resep_users', ['id' => $id])->result_array();
+            $resep = $this->db->get_where('resep_users', ['id' => $id])->result_array();
 
             # Bahan-bahan resep
-            $this->db->select('`bahan`.`nama`, takaran');
+            $this->db->select('id, nama_bahan, takaran, is_approve');
             $this->db->from('bahan_resep_users');
-            $this->db->join('bahan', 'bahan_id = bahan.id', 'inner');
             $this->db->where('resep_users_id', $id);
-            $resep['bahan'] = $this->db->get()->result_array();
+            $resep[0]['bahan'] = $this->db->get()->result_array();
 
             # Step resep
             $this->db->select('nomor_step, intruksi');
-            $resep['step'] = $this->db->get_where('step_resep_users', ['resep_users_id' => $id])->result_array();
+            $resep[0]['step'] = $this->db->get_where('step_resep_users', ['resep_users_id' => $id])->result_array();
 
             return $resep;
         } else if ($nama != null) {
@@ -51,12 +50,25 @@ class Resep_users_model extends CI_model
             if ($order) $this->db->order_by($order, "DESC");
             return $this->db->get()->result_array();
         } else if ($user != null) {
-            $this->db->select('*');
-            $this->db->from('resep_users');
-            $this->db->where('id_users', $user);
-            $this->db->limit($limit);
-            if ($order) $this->db->order_by($order, "DESC");
-            return $this->db->get()->result_array();
+            # Info resep
+            if (strtolower($user) === "null") $resep = $this->db->get_where('resep', ['id_users' => NULL])->result_array();
+            else $resep = $this->db->get_where('resep_users', ['id_users' => $user])->result_array();
+            if (count($resep) > 0) {
+                foreach ($resep as $resep_info_key => $resep_info_val) {
+                    $resep_id = $resep_info_val['id'];
+                    # Bahan-bahan resep
+                    $this->db->select('id,nama_bahan, takaran, is_approve');
+                    $this->db->from('bahan_resep_users');
+                    $this->db->where('resep_users_id', $resep_id);
+                    $resep[$resep_info_key]['bahan'] = $this->db->get()->result_array();
+
+                    # Step resep
+                    $this->db->select('id, nomor_step, intruksi');
+                    $resep[$resep_info_key]['step'] = $this->db->get_where('step_resep_users', ['resep_users_id' => $resep_id])->result_array();
+                }
+                return $resep;
+            }
+            return null;
         }
         $this->db->limit($limit);
         if ($order) $this->db->order_by($order, "DESC");
@@ -115,9 +127,9 @@ class Resep_users_model extends CI_model
         $this->db->from('bahan_resep_users');
         $this->db->where('resep_users_id', $id_resep);
         $sum_bahan = count($this->db->get()->result());
-        if($sum_bahan_approve==$sum_bahan){
+        if ($sum_bahan_approve == $sum_bahan) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

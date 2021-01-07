@@ -3,9 +3,10 @@
 class Resep_model extends CI_model
 {
 
-    public function getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null)
+    public function getResep($id = null, $nama = null, $limit = null, $bahan = null, $order = null, $user = null)
     {
-        if ($limit === null) {
+        if ($id === null && $nama === null && $bahan === null && $order === null && $user === null) {
+        } else {
             $limit = 10;
         }
         if ($id != null) {
@@ -29,7 +30,7 @@ class Resep_model extends CI_model
             $this->db->join('users', '`users`.`id`= `diskusi`.`user_id`', 'inner');
             $this->db->where('resep_id', $id);
             $resep['diskusi'] = $this->db->get()->result_array();
-            
+
             # Bookmark
             $this->db->select("`bookmark`.`user_id`, `users`.`nama`");
             $this->db->from('bookmark');
@@ -63,6 +64,41 @@ class Resep_model extends CI_model
             $this->db->limit($limit);
             if ($order) $this->db->order_by($order, "DESC");
             return $this->db->get()->result_array();
+        } else if ($user != null) {
+            # Info resep
+            if (strtolower($user) === "null") $resep = $this->db->get_where('resep', ['id_users' => NULL])->result_array();
+            else $resep = $this->db->get_where('resep', ['id_users' => $user])->result_array();
+            if (count($resep) > 0) {
+                foreach ($resep as $resep_info_key => $resep_info_val) {
+                    $resep_id = $resep_info_val['id'];
+                    # Bahan-bahan resep
+                    $this->db->select('`bahan`.`nama`, takaran');
+                    $this->db->from('bahan_resep');
+                    $this->db->join('bahan', 'bahan_id = bahan.id', 'inner');
+                    $this->db->where('resep_id', $resep_id);
+                    $resep[$resep_info_key]['bahan'] = $this->db->get()->result_array();
+
+                    # Step resep
+                    $this->db->select('nomor_step, intruksi');
+                    $resep[$resep_info_key]['step'] = $this->db->get_where('step_resep', ['resep_id' => $id])->result_array();
+
+                    # Diskusi
+                    $this->db->select("`diskusi`.`id`, `diskusi`.`isi`,`diskusi`.`user_id`,`users`.`nama`,`diskusi`.`disukai`, `diskusi`.`tanggal`");
+                    $this->db->from('diskusi');
+                    $this->db->join('users', '`users`.`id`= `diskusi`.`user_id`', 'inner');
+                    $this->db->where('resep_id', $resep_id);
+                    $resep[$resep_info_key]['diskusi'] = $this->db->get()->result_array();
+
+                    # Bookmark
+                    $this->db->select("`bookmark`.`user_id`, `users`.`nama`");
+                    $this->db->from('bookmark');
+                    $this->db->join('users', '`users`.`id`= `bookmark`.`user_id`', 'inner');
+                    $this->db->where('resep_id', $resep_id);
+                    $resep[$resep_info_key]['bookmark'] = $this->db->get()->result_array();
+                }
+                return $resep;
+            }
+            return null;
         }
         $this->db->limit($limit);
         if ($order) $this->db->order_by($order, "DESC");
@@ -78,25 +114,23 @@ class Resep_model extends CI_model
             # Info resep
             $resep['info'] = $this->db->get_where('resep', ['id' => $id])->result_array();
             return $resep;
-        }
-        else if ($nama != null) {
+        } else if ($nama != null) {
             if ($order) $this->db->order_by($order, "DESC");
             $this->db->like('nama', $nama);
-        }
-        else if ($bahan1 != null && $bahan2 != null) {
+        } else if ($bahan1 != null && $bahan2 != null) {
             // Find input to 'bahan' table
             $bahan = array($bahan1, $bahan2);
             $this->db->select('bahan.id');
             $this->db->from('bahan');
             $this->db->where_in('nama', $bahan);
-            
+
             // Place ID target to an 'bahan' array
             $bahan_ids = $this->db->get()->result_array();
             $bahan_id = array();
             foreach ($bahan_ids as $id) {
                 array_push($bahan_id, (int) $id['id']);
             }
-            if(count($bahan_id)==2){
+            if (count($bahan_id) == 2) {
                 // Find the 'bahan' in 'bahan_resep' table
                 $this->db->select('bahan_resep.resep_id');
                 $this->db->from('bahan_resep');
@@ -111,12 +145,12 @@ class Resep_model extends CI_model
                     $this->db->where('resep_id', $resep_id['resep_id']);
                     $this->db->where('bahan_id', $bahan_id[1]);
                     $query = $this->db->get()->row();
-                    if($query == null){
-                    continue;
+                    if ($query == null) {
+                        continue;
                     }
                     array_push($result, $query->resep_id);
                 }
-                if(count($result) > 0){
+                if (count($result) > 0) {
                     $this->db->select('*');
                     $this->db->from('resep');
                     $this->db->where_in('id', $result);
@@ -177,14 +211,14 @@ class Resep_model extends CI_model
     public function edit($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('resep',$data);
+        $this->db->update('resep', $data);
     }
 
     // Delete Resep
     public function delete($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->delete('resep',$data);
+        $this->db->delete('resep', $data);
     }
 
     // Listing Bahan dalam suatu Resep
@@ -220,7 +254,7 @@ class Resep_model extends CI_model
     public function editBahanResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('bahan_resep',$data);
+        $this->db->update('bahan_resep', $data);
     }
 
     // Delete Bahan Resep
@@ -260,7 +294,7 @@ class Resep_model extends CI_model
     public function editStepResep($data)
     {
         $this->db->where('id', $data['id']);
-        $this->db->update('step_resep',$data);
+        $this->db->update('step_resep', $data);
     }
 
     // Delete Step Resep

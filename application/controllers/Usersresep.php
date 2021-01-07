@@ -20,7 +20,7 @@ class Usersresep extends RESTController
         $limit = $this->get('limit');
         $bahan = $this->get('bahan');
         $order = $this->get('order');
-        $user = $this->get('user');
+        $user = $this->get('id_users');
 
         if ($id === null && $nama === null && $bahan === null && $order === null && $user === null) {
             $resep = $this->resep->getResep();
