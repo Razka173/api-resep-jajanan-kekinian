@@ -200,19 +200,17 @@ class Resep extends CI_Controller {
     			unlink('./assets/img/thumbs/'.$nama_file);
     		}
     	}
-		
 		foreach ($bahan as $bahan) {
-			$data = array('id'	=> $bahan->id);
+			$data = array(	'id'	=> $bahan->id);
 			$this->Resep_model->deleteBahanResep($data);
 		}
 		foreach ($step as $step){
-			$data = array('id'	=> $step->id);
+			$data = array(	'id'	=> $step->id);
 			$this->Resep_model->deleteStepResep($data);
 		}
 		// End proses hapus
-		$data = array('id'	=> $id_resep);
-		$this->Resep_model->delete($data);
-		$this->session->set_flashdata('sukses', 'Data telah dihapus');
+		$this->Resep_model->deleteResep($id_resep);
+		$this->session->set_flashdata('sukses', 'Data Resep Telah DIHAPUS');
 		redirect(base_url('admin/resep'),'refresh');
 	}
 

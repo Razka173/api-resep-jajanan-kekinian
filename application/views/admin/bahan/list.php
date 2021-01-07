@@ -16,9 +16,9 @@ if($this->session->flashdata('sukses')){
 <table class="table table-bordered" id="dataTable">
 	<thead>
 		<tr>
-			<th class="col-1">NO</th>
-			<th class="col-5">GAMBAR</th>
-			<th class="col-4">NAMA</th>
+			<th class="col-auto">NO</th>
+			<th class="col-auto">GAMBAR</th>
+			<th class="col-auto">NAMA</th>
 			<th class="col-2">ACTION</th>
 		</tr>
 	</thead>

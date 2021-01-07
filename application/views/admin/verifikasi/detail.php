@@ -14,6 +14,11 @@ if($this->session->flashdata('sukses')){
 	echo $this->session->flashdata('sukses');
 	// echo '</div>';
 }
+if($this->session->flashdata('notif')){
+	echo '<p class="alert alert-warning">';
+	echo $this->session->flashdata('notif');
+	// echo '</div>';
+}
 ?>
 
 <div>
@@ -66,10 +71,10 @@ if($this->session->flashdata('sukses')){
 			<td>
 				<img src="<?php echo base_url('assets/img/bahan/thumbs/').$bahan->gambar ?>" class="img img-responsive img-thumbnail" width=60 alt="Gambar">
 			</td>
-			<td><?php echo $bahan->nama ?></td>
+			<td><?php echo $bahan->nama_bahan ?></td>
 			<td><?php echo $bahan->takaran ?></td>
 			<td>
-				<a href="<?php echo base_url() ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url('admin/verifikasi/editbahanresep/'.$bahan->id) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
 			</td>
 		</tr>
@@ -95,7 +100,7 @@ if($this->session->flashdata('sukses')){
 			<td><?php echo $stepresep->nomor_step ?></td>
 			<td><?php echo $stepresep->intruksi ?></td>
 			<td>
-				<a href="<?php echo base_url() ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+				<a href="<?php echo base_url('admin/verifikasi/editstepresep/'.$stepresep->id) ?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
 			</td>
 		</tr>
