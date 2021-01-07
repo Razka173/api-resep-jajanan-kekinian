@@ -54,3 +54,24 @@
 <div style="width: 600px;">
     <canvas id="actionterbanyak"></canvas>
 </div>
+<hr>
+<div>
+    <p class="text-lg">Data log untuk user teraktif:</p>
+</div>
+<div style="width: 600px;">
+    <canvas id="userteraktif"></canvas>
+</div>
+<hr>
+<div>
+    <p class="text-lg">Data Resep terfavorit:</p>
+</div>
+<div style="width: 600px;">
+    <canvas id="resepterfavorit"></canvas>
+</div>
+<hr>
+<div>
+    <p class="text-lg">Data Resep terpopuler:</p>
+</div>
+<div style="width: 600px;">
+    <canvas id="resepterpopuler"></canvas>
+</div>
