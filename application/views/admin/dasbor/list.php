@@ -6,19 +6,14 @@
       <th>Username</th>
     </tr>
   </thead>
-  <tfoot>
-    <tr>
-      <th>Nama</th>
-      <th>Akses Level</th>
-      <th>Username</th>
-    </tr>
-  </tfoot>
   <tbody>
+    <?php foreach($admin as $admin){?>
     <tr>
-      <td><?php echo $this->session->userdata('nama'); ?></td>
-      <td><?php echo $this->session->userdata('akses_level'); ?></td>
-      <td><?php echo $this->session->userdata('username'); ?></td>
+      <td> <?php echo $admin->nama ?></td>
+      <td> <?php echo $admin->username ?></td>
+      <td> <?php echo $admin->akses_level ?></td>
     </tr>
+    <?php }?>
   </tbody>
 </table>
 

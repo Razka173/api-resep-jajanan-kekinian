@@ -9,14 +9,16 @@ class Dasbor extends CI_Controller {
 		parent::__construct();
 		// Proteksi halaman
 		$this->simple_login->cek_login();
-		//$this->load->model('Konfigurasi_model');
+		$this->load->model('Admin_model');
 	}
 
 	// Halaman utama dasbor
 	public function index()
 	{
+		$admin = $this->Admin_model->listing();
 		$data = array(	'title'			=> 'Halaman Administrator',
 						'isi'			=> 'admin/dasbor/list',
+						'admin'			=> $admin,
 					);
 		$this->load->view('admin/layout/wrapper', $data, FALSE);
 	}
