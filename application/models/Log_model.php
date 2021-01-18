@@ -56,8 +56,9 @@ class Log_model extends CI_model
     // Listing all Log
     public function listing()
     {
-        $this->db->select('*');
+        $this->db->select('user_logs.*, users.nama');
         $this->db->from('user_logs');
+        $this->db->join('users', 'user_id = users.id', 'left');
         $this->db->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();

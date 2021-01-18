@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2021 at 01:57 AM
+-- Generation Time: Jan 08, 2021 at 04:58 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -409,6 +409,7 @@ ALTER TABLE `bahan_resep`
 -- Constraints for table `bahan_resep_users`
 --
 ALTER TABLE `bahan_resep_users`
+  ADD CONSTRAINT `FK_bahan_id` FOREIGN KEY (`bahan_id`) REFERENCES `bahan` (`id`),
   ADD CONSTRAINT `FK_id_resep` FOREIGN KEY (`resep_users_id`) REFERENCES `resep_users` (`id`);
 
 --
